@@ -6,7 +6,7 @@ style_test: flakes pep8
 
 test_unit:
 	@echo "Running tests"
-	@pytest --cov-config .coveragerc
+	@pytest --cov-config .coveragerc --cov .
 
 report:
 	@coverage report

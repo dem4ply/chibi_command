@@ -32,7 +32,7 @@ def stdout_simple_echo( sample_text ):
     return result
 
 
-class Test_command():
+class Test_command:
 
     def test_return_a_tuple( self, simple_echo ):
         """
