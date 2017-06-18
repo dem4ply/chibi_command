@@ -1,7 +1,7 @@
 from chibi_command import command
 
 
-def echo( text, capture=False):
+def echo( text, capture=False ):
     if capture:
         stdout = 'pipe'
     else:

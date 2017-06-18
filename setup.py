@@ -14,7 +14,12 @@ setup(name='chibi_command',
       author='',
       author_email='',
       packages=['chibi_command'],
-      install_requires=[],
+      install_requires=[
+          'chibi_dict==0.1',
+      ],
+      dependency_links = [
+          'git+https://github.com/dem4ply/chibi_dict.git@master#egg=chibi_dict-0.1',
+      ],
       classifiers=[
           'Environment :: Console',
           'Intended Audience :: Developers',

@@ -4,3 +4,4 @@ pep8
 flake8
 expects
 pytest
+-e git+https://github.com/dem4ply/chibi_dict.git@master#egg=chibi_dict
