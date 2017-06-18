@@ -1,7 +1,7 @@
 import pytest
 from expects import expect, be_none, contain
 
-from chibi_command.echo.cowsay import cowsay
+from chibi_command.echo import cowsay
 
 
 @pytest.fixture

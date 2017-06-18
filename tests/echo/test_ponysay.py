@@ -1,7 +1,7 @@
 import pytest
 from expects import expect, be_none, contain
 
-from chibi_command.echo.ponysay import ponysay
+from chibi_command.echo import ponysay
 
 
 @pytest.fixture

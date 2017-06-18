@@ -1,7 +1,7 @@
 import pytest
 from expects import expect, be_none, start_with
 
-from chibi_command.echo.echo import echo
+from chibi_command.echo import echo
 
 
 @pytest.fixture
