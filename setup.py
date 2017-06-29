@@ -1,7 +1,7 @@
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except:
-    from distutils.core import setup
+    from distutils.core import setup, find_packages
 
 # here = os.path.abspath( os.path.dirname( __file__ ) )
 # README = open(os.path.join( here, 'README.rst' ) ).read()
@@ -13,7 +13,7 @@ setup(name='chibi_command',
       license='',
       author='',
       author_email='',
-      packages=['chibi_command'],
+      packages=find_packages(),
       install_requires=[
           'chibi_dict==0.1',
       ],
