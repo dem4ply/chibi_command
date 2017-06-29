@@ -15,10 +15,13 @@ setup(name='chibi_command',
       author_email='',
       packages=find_packages(),
       install_requires=[
+          'gitpython',
           'chibi_dict==0.1',
+          'chibi_file==0.1',
       ],
       dependency_links = [
           'git+https://github.com/dem4ply/chibi_dict.git@master#egg=chibi_dict-0.1',
+          'git+https://github.com/dem4ply/chibi_file.git@master#egg=chibi_file-0.1',
       ],
       classifiers=[
           'Environment :: Console',

@@ -1,0 +1,5 @@
+chibi_command/__init__.py
+chibi_command.egg-info/PKG-INFO
+chibi_command.egg-info/SOURCES.txt
+chibi_command.egg-info/dependency_links.txt
+chibi_command.egg-info/top_level.txt
