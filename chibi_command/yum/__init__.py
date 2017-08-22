@@ -11,3 +11,7 @@ def update():
 
 def install( *pkgs ):
     return yum( 'install', *pkgs )
+
+
+def local_install( *pkgs ):
+    return yum( 'localinstall', *pkgs )

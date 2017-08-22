@@ -16,8 +16,8 @@ setup(name='chibi_command',
       packages=find_packages(),
       install_requires=[
           'gitpython',
-          'chibi_dict==0.1',
-          'chibi_file==0.1',
+          #'chibi_dict==0.1',
+          #'chibi_file==0.1',
       ],
       dependency_links = [
           'git+https://github.com/dem4ply/chibi_dict.git@master#egg=chibi_dict-0.1',
