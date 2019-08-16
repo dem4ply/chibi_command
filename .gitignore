@@ -162,4 +162,5 @@ venv
 .*.swp
 .*.swa
 
-.cache
+#eggs
+*.egg*

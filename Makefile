@@ -1,12 +1,14 @@
-test:: test_unit style_test report
+ignore_test = test/**,venv/*,setup.py
 
-modules = chibi_command
+test:: test_unit report
+
+modules = chibi
 
 style_test: flakes pep8
 
 test_unit:
 	@echo "Running tests"
-	@pytest --cov-config .coveragerc --cov .
+	@coverage run -m unittest discover -p "*.py" -s tests
 
 report:
 	@coverage report
@@ -19,10 +21,6 @@ clean:
 	@echo "Running clean..."
 	@find . -name ".*.sw*" -exec rm {} +
 	@rm -rf .coverage .coverage_html_report
-
-style:
-	@echo "Running flake8 test...."
-	@flake8 ${modules}
 
 pep8:
 	@echo "Running pep8 tests..."
