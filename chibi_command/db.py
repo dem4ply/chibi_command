@@ -9,6 +9,10 @@ class Mariadb( Command ):
     def user( cls, user ):
         return cls( '-u', user )
 
+    def password( self, password ):
+        self.add_args( '-p{}'.format( password ) )
+        return self
+
     def run_script( self, script ):
         return self( stdin=script )
 

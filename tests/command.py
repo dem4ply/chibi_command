@@ -30,3 +30,12 @@ class Test_echo( TestCase ):
         command = Command( "echo" )
         new_command = copy.copy( command )
         self.assertEqual( command, new_command )
+
+    def test_add_new_args( self ):
+        command = Command( 'echo' )
+        command.add_args( 'hello' )
+        self.assertEqual( 'echo hello', command.preview() )
+
+        command = Command( 'echo' )
+        command.add_args( hello='hello' )
+        self.assertEqual( 'echo hello hello', command.preview() )

@@ -1,4 +1,5 @@
 from subprocess import Popen, PIPE
+import itertools
 import logging
 
 logger = logging.getLogger( 'chibi.command' )
@@ -115,3 +116,10 @@ class Command:
         new_command = type( self )(
             *args, command=self.command, captive=self.captive, **kw )
         return new_command
+
+    def add_args( self, *new_args, **new_kw ):
+        if new_args:
+            self.args = tuple( itertools.chain( self.args, new_args ) )
+
+        if new_kw:
+            self.kw.update( new_kw )
