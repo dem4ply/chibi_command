@@ -56,9 +56,11 @@ class Command:
             return PIPE
         return None
 
-    def _build_proccess( self, *args ):
+    def _build_proccess( self, *args, stdin=None ):
+        if isinstance( stdin, str ):
+            stdin = PIPE
         proc = Popen(
-            self.build_tuple( *args ),
+            self.build_tuple( *args ), stdin=stdin,
             stdout=self.stdout, stderr=self.stderr )
         return proc
 
@@ -76,9 +78,13 @@ class Command:
         tuples = self.build_tuple( *args )
         return " ".join( tuples )
 
-    def run( self, *args, **kw ):
-        proc = self._build_proccess( *args )
-        result, error = proc.communicate()
+    def run( self, *args, stdin=None, **kw ):
+        proc = self._build_proccess( *args, stdin=stdin )
+        if isinstance( stdin, str ):
+            result, error = proc.communicate( stdin.encode() )
+        else:
+            result, error = proc.communicate()
+
         if result is not None:
             result = result.decode( 'utf-8' )
         if error is not None:

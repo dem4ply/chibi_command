@@ -28,6 +28,12 @@ class Test_echo( TestCase ):
         self.assertEqual(
             "{} {}".format( self.command.command, self.hello ), r )
 
+    def test_stdin( self ):
+        r = self.command( stdin=self.hello )
+        self.assertTrue( r.result )
+        self.assertEqual( r.return_code, 0 )
+        self.assertFalse( r.error )
+
 
 class Test_cowsay( Test_echo ):
     def setUp( self ):
