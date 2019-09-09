@@ -24,7 +24,7 @@ class Test_echo( TestCase ):
         self.assertFalse( r.error )
 
     def test_mock( self ):
-        r = self.command( self.hello, ___mock=True )
+        r = self.command.preview( self.hello )
         self.assertEqual(
             "{} {}".format( self.command.command, self.hello ), r )
 
