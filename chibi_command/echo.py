@@ -21,3 +21,9 @@ class Ponysay( Echo ):
 
 class CirnoSay( Echo ):
     command = 'cirnosay'
+
+
+echo = Echo()
+cowsay = Cowsay()
+ponysay = Ponysay()
+cirnosay = CirnoSay()
