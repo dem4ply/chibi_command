@@ -1,4 +1,7 @@
 from subprocess import Popen, PIPE
+import logging
+
+logger = logging.getLogger( 'chibi.command' )
 
 
 class Command_result:
@@ -56,11 +59,11 @@ class Command:
             return PIPE
         return None
 
-    def _build_proccess( self, *args, stdin=None ):
+    def _build_proccess( self, *args, stdin=None, **kw ):
         if isinstance( stdin, str ):
             stdin = PIPE
         proc = Popen(
-            self.build_tuple( *args ), stdin=stdin,
+            self.build_tuple( *args, **kw ), stdin=stdin,
             stdout=self.stdout, stderr=self.stderr )
         return proc
 
@@ -75,11 +78,12 @@ class Command:
             for k, v in params.items() )
 
     def preview( self, *args, **kw ):
-        tuples = self.build_tuple( *args )
+        tuples = self.build_tuple( *args, **kw )
         return " ".join( tuples )
 
     def run( self, *args, stdin=None, **kw ):
-        proc = self._build_proccess( *args, stdin=stdin )
+        logger.info( 'ejecutando "{}"'.format( self.preview( *args, **kw ) ) )
+        proc = self._build_proccess( *args, stdin=stdin, **kw )
         if isinstance( stdin, str ):
             result, error = proc.communicate( stdin.encode() )
         else:
