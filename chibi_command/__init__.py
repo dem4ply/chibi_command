@@ -62,9 +62,11 @@ class Command:
     def _build_proccess( self, *args, stdin=None, **kw ):
         if isinstance( stdin, str ):
             stdin = PIPE
+        arguments = self.build_tuple( *args, **kw )
+        logger.debug(
+            'coamndo con argumentos "{}"'.format( str( arguments  ) ) )
         proc = Popen(
-            self.build_tuple( *args, **kw ), stdin=stdin,
-            stdout=self.stdout, stderr=self.stderr )
+            arguments, stdin=stdin, stdout=self.stdout, stderr=self.stderr )
         return proc
 
     def build_tuple( self, *args, **kw ):
