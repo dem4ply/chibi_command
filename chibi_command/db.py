@@ -9,6 +9,9 @@ class Mariadb( Command ):
     def user( cls, user ):
         return cls( **{ '-u': user } )
 
+    def run_script( self, script ):
+        return self( stdin=script )
+
 
 class Mysql( Mariadb ):
     pass
