@@ -7,7 +7,7 @@ class Mariadb( Command ):
 
     @classmethod
     def user( cls, user ):
-        return cls( *{ '-u': user } )
+        return cls( **{ '-u': user } )
 
 
 class Mysql( Mariadb ):
