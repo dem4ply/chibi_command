@@ -68,7 +68,8 @@ class Firewall_cmd( Command ):
         result = cls( '--realod' )()
         return result
 
-    def add_port( ports, kind='tcp', permanent=True ):
+    @classmethod
+    def add_port( cls, ports, kind='tcp', permanent=True ):
         """
         agrega un puerto usando firewall-cmd
 
