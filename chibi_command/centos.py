@@ -5,7 +5,7 @@ import json
 from chibi_command import Command_result
 
 
-class Systemctl( Command ):
+class Yum( Command ):
     command = 'yum'
     captive = False
     args = ( '-y', )
