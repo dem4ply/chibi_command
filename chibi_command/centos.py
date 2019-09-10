@@ -62,10 +62,10 @@ class Firewall_cmd( Command ):
     command = "firewall-cmd"
 
     @classmethod
-    def realod( cls ):
+    def reload( cls ):
         """
         """
-        result = cls( '--realod' )()
+        result = cls( '--reload' )()
         return result
 
     @classmethod
