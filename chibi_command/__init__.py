@@ -10,12 +10,16 @@ class Command_result:
         self.result = result
         self.error = error
         self.return_code = return_code
+        self.parse_result()
 
     def __str__( self ):
         return self.result
 
     def __bool__( self ):
-        return self.return_code == 0
+        return self.return_code == 0 and bool( self.result )
+
+    def parse_result( self ):
+        pass
 
 
 class Command:
@@ -26,9 +30,13 @@ class Command:
     kw_format = "{key} {value}"
     result_class = Command_result
 
-    def __init__( self, *args, captive=None, command=None, **kw ):
+    def __init__(
+            self, *args, captive=None, command=None, result_class=None, **kw ):
         if captive is not None:
             self.captive = captive
+
+        if result_class is not None:
+            self.result_class = result_class
 
         if command is not None:
             self.command = command
