@@ -14,10 +14,7 @@ setup(name='chibi_command',
       author='',
       author_email='',
       packages=find_packages(),
-      install_requires=[
-          'gitpython',
-          'chibi>=0.4.9',
-      ],
+      install_requires=[ 'gitpython', 'chibi>=0.4.9', 'chibi_hybrid', ],
       classifiers=[
           'Environment :: Console',
           'Intended Audience :: Developers',
