@@ -25,3 +25,4 @@ class DD( Command ):
     def output_file( self, output_file ):
         self.add_args( **{ 'of': output_file } )
         return self
+
