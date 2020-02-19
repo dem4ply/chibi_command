@@ -13,10 +13,12 @@ class Command_result:
         self.parse_result()
 
     def __str__( self ):
-        return self.result
+        if self:
+            return self.result
+        return self.error
 
     def __bool__( self ):
-        return self.return_code == 0 and bool( self.result )
+        return self.return_code == 0
 
     def parse_result( self ):
         pass
