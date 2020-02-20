@@ -13,6 +13,7 @@ class Create( Command ):
     @name.instancemethod
     def name( self, name ):
         self.add_args( '-n', name )
+        return self
 
     @Chibi_hybrid
     def template( cls, template ):
@@ -21,6 +22,7 @@ class Create( Command ):
     @template.instancemethod
     def template( self, template ):
         self.add_args( '-t', template )
+        return self
 
 
 class Attach( Command ):
@@ -34,6 +36,7 @@ class Attach( Command ):
     @name.instancemethod
     def name( self, name ):
         self.add_args( '-n', name )
+        return self
 
     def build_tuple( self, *args, **kw ):
         return (
