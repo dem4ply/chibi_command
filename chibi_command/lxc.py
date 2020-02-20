@@ -39,11 +39,11 @@ class Start( Command ):
         return self
 
     @Chibi_hybrid
-    def daemon( cls, name ):
+    def daemon( cls ):
         return cls( '-d' )
 
     @daemon.instancemethod
-    def daemon( self, name ):
+    def daemon( self ):
         self.add_args( '-d' )
         return self
 
