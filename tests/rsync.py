@@ -24,3 +24,7 @@ class Test_rsync( TestCase ):
         options = Rsync.options( '--progress' )
         func = Rsync.progress()
         self.assertEqual( options.preview(), func.preview() )
+
+    def test_clone_dir( self ):
+        func = Rsync.clone_dir()
+        self.assertEqual( 'rsync -a -z', func.preview() )

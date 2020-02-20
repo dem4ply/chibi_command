@@ -13,7 +13,8 @@ class Rsync( Command ):
 
     @options.instancemethod
     def options( self, *options ):
-        return self.add_args( *options )
+        self.add_args( *options )
+        return self
 
     @Chibi_hybrid
     def archive_mode( cls ):
@@ -21,7 +22,8 @@ class Rsync( Command ):
 
     @archive_mode.instancemethod
     def archive_mode( self ):
-        return self.options( '-a' )
+        self.options( '-a' )
+        return self
 
     @Chibi_hybrid
     def verbose( cls ):
@@ -29,7 +31,8 @@ class Rsync( Command ):
 
     @verbose.instancemethod
     def verbose( self ):
-        return self.options( '-v' )
+        self.options( '-v' )
+        return self
 
     @Chibi_hybrid
     def compress( cls ):
@@ -37,7 +40,8 @@ class Rsync( Command ):
 
     @compress.instancemethod
     def compress( self ):
-        return self.options( '-z' )
+        self.options( '-z' )
+        return self
 
     @Chibi_hybrid
     def human( cls ):
@@ -45,7 +49,8 @@ class Rsync( Command ):
 
     @human.instancemethod
     def human( self ):
-        return self.options( '-h' )
+        self.options( '-h' )
+        return self
 
     @Chibi_hybrid
     def progress( cls ):
@@ -53,4 +58,16 @@ class Rsync( Command ):
 
     @progress.instancemethod
     def progress( self ):
-        return self.options( '--progress' )
+        self.options( '--progress' )
+        return self
+
+    @Chibi_hybrid
+    def clone_dir( cls ):
+        instance = cls.archive_mode()
+        instance.compress()
+        return instance
+
+    @clone_dir.instancemethod
+    def clone_dir( self ):
+        self.archive_mode().compress()
+        return self
