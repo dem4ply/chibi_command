@@ -5,7 +5,7 @@ import logging
 
 __author__ = """dem4ply"""
 __email__ = 'dem4ply@gmail.com'
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 logger = logging.getLogger( 'chibi.command' )
 
