@@ -11,7 +11,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ 'gitpython', 'chibi>=0.5.5', 'chibi_hybrid>=version='0.0.1'', ]
+requirements = [ 'gitpython', 'chibi>=0.5.5', 'chibi_hybrid>=0.0.1', ]
 
 setup(
     author="Dem4ply",
@@ -33,6 +33,6 @@ setup(
     name='chibi_command',
     packages=find_packages(include=['chibi_command', 'chibi_command.*']),
     url='https://github.com/dem4ply/chibi_command',
-    version='version='0.0.1'',
+    version='0.0.1',
     zip_safe=False,
 )
