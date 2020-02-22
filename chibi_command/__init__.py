@@ -1,6 +1,11 @@
+# -*- coding: utf-8 -*-
 from subprocess import Popen, PIPE
 import itertools
 import logging
+
+__author__ = """dem4ply"""
+__email__ = 'dem4ply@gmail.com'
+__version__ = '0.0.6'
 
 logger = logging.getLogger( 'chibi.command' )
 
@@ -13,10 +18,12 @@ class Command_result:
         self.parse_result()
 
     def __str__( self ):
-        return self.result
+        if self:
+            return self.result
+        return self.error
 
     def __bool__( self ):
-        return self.return_code == 0 and bool( self.result )
+        return self.return_code == 0
 
     def parse_result( self ):
         pass
