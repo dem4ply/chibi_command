@@ -22,3 +22,8 @@ class Test_dd( TestCase ):
         dd.input_file( '~/sda.img' )
         self.assertEqual(
             dd.preview(), 'dd bs=1M status=progress of=/dev/sda if=~/sda.img' )
+
+    def test_to_zero( self ):
+        dd = DD.to_zero( '/dev/sda' )
+        self.assertEqual(
+            dd.preview(), 'dd bs=1M status=progress if=/dev/zero of=/dev/sda' )

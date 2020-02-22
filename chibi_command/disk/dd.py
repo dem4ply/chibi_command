@@ -26,3 +26,14 @@ class DD( Command ):
         self.add_args( **{ 'of': output_file } )
         return self
 
+    @Chibi_hybrid
+    def to_zero( cls, output_file ):
+        instance = cls.input_file( '/dev/zero' )
+        instance.output_file( output_file )
+        return instance
+
+    @to_zero.instancemethod
+    def to_zero( self, output_file ):
+        self.input_file( '/dev/zero' )
+        self.output_file( output_file )
+        return self
