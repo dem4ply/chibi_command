@@ -3,6 +3,7 @@ from chibi.file import Chibi_path
 from chibi_command import Command
 
 class Git:
+    @classmethod
     def clone( cls, url, dest=None ):
         """
         clona el repositorio de la url
