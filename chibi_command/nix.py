@@ -19,6 +19,20 @@ class Journal_status( Command_result ):
             human=status, messages=messages )
 
 
+class Journal_show( Command_result ):
+    def __init__( self, result, error, return_code ):
+        super().__init__( result, error, return_code )
+        pre_parse = self.result.split( '\n' )
+
+        result = {}
+        for pre in pre_parse:
+            if pre:
+                k, v = pre.rsplit( '=', 1 )
+                result[ k.strip() ] = v.strip()
+
+        self.result = Chibi_atlas( result )
+
+
 class Systemctl( Command ):
     command = 'systemctl'
     captive = True
@@ -29,6 +43,9 @@ class Systemctl( Command ):
     @classmethod
     def status( cls, *services ):
         result = cls( 'status', *services )()
+        if result:
+            show = cls.show( *services )
+            result.properties = show.result
         return result
 
     @classmethod
@@ -47,6 +64,10 @@ class Systemctl( Command ):
         return result
 
     @classmethod
-    def daemon_reload( cls, *services ):
-        result = cls( 'daemon-reload', *services )()
+    def daemon_reload( cls ):
+        result = cls( 'daemon-reload' )()
         return result
+
+    @classmethod
+    def show( cls, *services ):
+        return cls( 'show', result_class=Journal_show ).run( *services )
