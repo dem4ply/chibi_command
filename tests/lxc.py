@@ -29,7 +29,23 @@ class Test_lxc_attach( TestCase ):
         self.assertIs( c, c2 )
 
 
-class Test_lxc_info( TestCase ):
+class Test_lxc_info:
+    def test_should_do_the_format( self ):
+        self.assertIsInstance( self.info.result, Chibi_atlas )
+
+
+class Test_lxc_info_stopped( Test_lxc_info, TestCase ):
+    def setUp( self ):
+        self.example = """
+            Name:           quetzalcoatl\nState:          STOPPED\n
+        """
+        self.info = lxc.Info_result( self.example, '', 0 )
+
+    def test_result_should_process_the_state( self ):
+        self.assertFalse( self.info.is_running )
+
+
+class Test_lxc_info_running( Test_lxc_info, TestCase ):
     def setUp( self ):
         super().setUp()
         self.example = """Name:           quetzalcoatl
@@ -46,9 +62,6 @@ class Test_lxc_info( TestCase ):
             Total bytes:   193695413
         """
         self.info = lxc.Info_result( self.example, '', 0 )
-
-    def test_should_do_the_format( self ):
-        self.assertIsInstance( self.info.result, Chibi_atlas )
 
     def test_result_should_process_the_state( self ):
         self.assertTrue( self.info.is_running )

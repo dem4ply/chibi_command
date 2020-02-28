@@ -88,6 +88,7 @@ class Info( Command ):
     command = 'lxc-info'
     captive = True
     args = ( '-H', )
+    result_class = Info_result
 
     @Chibi_hybrid
     def name( cls, name ):
