@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+from chibi.atlas import Chibi_atlas
 from chibi_command import lxc
 
 
@@ -26,3 +27,28 @@ class Test_lxc_attach( TestCase ):
         c = lxc.Attach()
         c2 = c.name( 'test' )
         self.assertIs( c, c2 )
+
+
+class Test_lxc_info( TestCase ):
+    def setUp( self ):
+        super().setUp()
+        self.example = """Name:           quetzalcoatl
+            State:          RUNNING
+            PID:            7198
+            IP:             192.168.122.49
+            CPU use:        270973560504
+            BlkIO use:      607961088
+            Memory use:     226648064
+            KMem use:       0
+            Link:           veth7QE74S
+            TX bytes:      1398585
+            RX bytes:      192296828
+            Total bytes:   193695413
+        """
+        self.info = lxc.Info_result( self.example, '', 0 )
+
+    def test_should_do_the_format( self ):
+        self.assertIsInstance( self.info.result, Chibi_atlas )
+
+    def test_result_should_process_the_state( self ):
+        self.assertTrue( self.info.is_running )

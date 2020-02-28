@@ -62,12 +62,22 @@ class Rsync( Command ):
         return self
 
     @Chibi_hybrid
+    def update( cls ):
+        return cls.options( '-u' )
+
+    @update.instancemethod
+    def update( self ):
+        self.options( '-u' )
+        return self
+
+    @Chibi_hybrid
     def clone_dir( cls ):
         instance = cls.archive_mode()
         instance.compress()
+        instance.update()
         return instance
 
     @clone_dir.instancemethod
     def clone_dir( self ):
-        self.archive_mode().compress()
+        self.archive_mode().compress().update()
         return self
