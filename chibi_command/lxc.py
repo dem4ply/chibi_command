@@ -22,7 +22,7 @@ class Info_result( Command_result ):
 
 class Create( Command ):
     command = 'lxc-create'
-    captive = False;
+    captive = False
 
     @Chibi_hybrid
     def name( cls, name ):
@@ -45,7 +45,7 @@ class Create( Command ):
 
 class Start( Command ):
     command = 'lxc-start'
-    captive = False;
+    captive = False
 
     @Chibi_hybrid
     def name( cls, name ):

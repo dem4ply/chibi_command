@@ -14,7 +14,6 @@ class Test_echo( TestCase ):
         result = Command()
         self.assertEqual( "", result.preview(), )
 
-
     def test_eq( self ):
         command_1 = Command( "echo" )
         command_2 = Command( "cowsay" )

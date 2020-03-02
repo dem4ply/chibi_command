@@ -6,6 +6,7 @@ from chibi_command import Command
 
 logger = logging.getLogger( 'chibi_command.git' )
 
+
 class Git:
     @classmethod
     def clone( cls, url, dest=None ):

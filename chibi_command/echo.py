@@ -13,11 +13,14 @@ class Echo( Command ):
     command = 'echo'
     captive = False
 
+
 class Cowsay( Echo ):
     command = 'cowsay'
 
+
 class Ponysay( Echo ):
     command = 'cowsay'
+
 
 class CirnoSay( Echo ):
     command = 'cirnosay'

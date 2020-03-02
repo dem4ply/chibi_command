@@ -4,7 +4,7 @@ from chibi_hybrid.chibi_hybrid import Chibi_hybrid
 
 class Xfconf_query( Command ):
     command = 'xfconf-query'
-    captive = False;
+    captive = False
 
     @Chibi_hybrid
     def channel( cls, channel ):

@@ -5,7 +5,7 @@ from chibi_command import Command
 
 class Rsync( Command ):
     command = 'rsync'
-    captive = False;
+    captive = False
 
     @Chibi_hybrid
     def options( cls, *options ):
