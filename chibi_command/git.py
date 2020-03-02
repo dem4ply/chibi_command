@@ -1,6 +1,10 @@
+import logging
 from git import Repo
 from chibi.file import Chibi_path
 from chibi_command import Command
+
+
+logger = logging.getLogger( 'chibi_command.git' )
 
 class Git:
     @classmethod
@@ -33,3 +37,12 @@ class Git:
         if src is None:
             src = Chibi_path.current_dir()
         Repo( src ).remote().pull()
+
+    @classmethod
+    def checkout( cls, branch, src=None ):
+        if src is None:
+            src = Chibi_path.current_dir()
+        repo = Repo( src )
+        current_branch = repo.active_branch
+        logger.info( f"cambiando '{current_branch.name}' a '{branch}'" )
+        repo.git.checkout( branch )
