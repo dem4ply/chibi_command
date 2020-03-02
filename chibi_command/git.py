@@ -12,7 +12,7 @@ class Git:
     def repo( cls, src ):
         if src is None:
             src = Chibi_path.current_dir()
-        Repo( src ).remote().pull()
+        return Repo( src )
 
     @classmethod
     def clone( cls, url, dest=None ):
