@@ -9,6 +9,12 @@ logger = logging.getLogger( 'chibi_command.git' )
 
 class Git:
     @classmethod
+    def repo( cls, src ):
+        if src is None:
+            src = Chibi_path.current_dir()
+        Repo( src ).remote().pull()
+
+    @classmethod
     def clone( cls, url, dest=None ):
         """
         clona el repositorio de la url
@@ -35,15 +41,12 @@ class Git:
         src: string
             ruta del repositorio que se quiere hacer pull
         """
-        if src is None:
-            src = Chibi_path.current_dir()
-        Repo( src ).remote().pull()
+        repo = cls.repo( src )
+        repo.remote().pull()
 
     @classmethod
     def checkout( cls, branch, src=None ):
-        if src is None:
-            src = Chibi_path.current_dir()
-        repo = Repo( src )
+        repo = cls.repo( src )
         current_branch = repo.active_branch
         logger.info( f"cambiando '{current_branch.name}' a '{branch}'" )
         repo.git.checkout( branch )
