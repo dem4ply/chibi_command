@@ -10,22 +10,25 @@ from chibi_command.nix.systemd import Journal_status, Journal_show
 
 class Test_systemctl( TestCase ):
     def test_status( self ):
-        result = Systemctl.status( "unkown" )
+        result = Systemctl.status( "unkown" ).run()
         self.assertIsNotNone( result )
         self.assertFalse( result )
 
-        result = Systemctl.status( "NetworkManager" )
+        result = Systemctl.status( "NetworkManager" ).run()
         self.assertIsNotNone( result )
         self.assertTrue( result )
         self.assertIsInstance( result, Journal_status )
+        self.assertEqual(
+            'NetworkManager.service', result.result.service )
 
     def test_status_has_the_show_properites( self ):
-        result = Systemctl.status( "NetworkManager" )
-        self.assertIsNotNone( getattr( result, 'properties', None ) )
-        self.assertIsInstance( result.properties, Chibi_atlas )
+        result = Systemctl.status( "NetworkManager" ).run()
+        self.assertIn( 'properties', result.result )
+        self.assertIsInstance( result.result.properties, Chibi_atlas )
+        self.assertTrue( result.result.properties )
 
     def test_show( self ):
-        result = Systemctl.show( "NetworkManager" )
+        result = Systemctl.show( "NetworkManager" ).run()
         self.assertIsNotNone( result )
         self.assertTrue( result )
         self.assertIsInstance( result, Journal_show )

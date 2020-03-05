@@ -17,9 +17,18 @@ class Journal_status( Command_result ):
         status = pre_parse[ :end_of_status ]
         pre_messages = pre_parse[ end_of_status:]
         messages = [ json.loads( m ) for m in pre_messages if m ]
+        if status:
+            service = status[0].split()[1]
+        else:
+            service = ''
 
+        if service:
+            show = Systemctl.show( service ).run().result
+        else:
+            show = Chibi_atlas()
         self.result = Chibi_atlas(
-            human=status, messages=messages )
+            service=service, human=status, messages=messages,
+            properties=show )
 
 
 class Journal_show( Command_result ):
@@ -45,32 +54,29 @@ class Systemctl( Command ):
 
     @classmethod
     def status( cls, *services ):
-        result = cls( 'status', *services )()
-        if result:
-            show = cls.show( *services )
-            result.properties = show.result
+        result = cls( 'status', *services )
         return result
 
     @classmethod
     def start( cls, *services ):
-        result = cls( 'start', *services )()
+        result = cls( 'start', *services )
         return result
 
     @classmethod
     def enable( cls, *services ):
-        result = cls( 'enable', *services )()
+        result = cls( 'enable', *services )
         return result
 
     @classmethod
     def restart( cls, *services ):
-        result = cls( 'restart', *services )()
+        result = cls( 'restart', *services )
         return result
 
     @classmethod
     def daemon_reload( cls ):
-        result = cls( 'daemon-reload' )()
+        result = cls( 'daemon-reload' )
         return result
 
     @classmethod
     def show( cls, *services ):
-        return cls( 'show', result_class=Journal_show ).run( *services )
+        return cls( 'show', *services, result_class=Journal_show )
