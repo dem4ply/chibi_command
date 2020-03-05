@@ -80,8 +80,14 @@ class Attach( Command ):
         return self
 
     def build_tuple( self, *args, **kw ):
+        new_args = []
+        for arg in args:
+            if isinstance( arg, Command ):
+                new_args += list( arg.build_tuple() )
+            else:
+                new_args.append( arg )
         return (
-            self.command, *self.build_kw( **kw ), *self.args, '--', *args )
+            self.command, *self.build_kw( **kw ), *self.args, '--', *new_args )
 
 
 class Info( Command ):

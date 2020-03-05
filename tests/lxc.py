@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from chibi.atlas import Chibi_atlas
 from chibi_command import lxc
+from chibi_command.nix import Systemctl
 
 
 class Test_lxc_create( TestCase ):
@@ -27,6 +28,13 @@ class Test_lxc_attach( TestCase ):
         c = lxc.Attach()
         c2 = c.name( 'test' )
         self.assertIs( c, c2 )
+
+    def test_when_run_a_chibi_command_should_be_sended_to_the_contaner( self ):
+        command = Systemctl.status( 'unknow' )
+        result = lxc.Attach().name( 'some one' ).preview( command )
+        self.assertEqual(
+            'lxc-attach -n some one -- systemctl --output=json status unknow',
+            result )
 
 
 class Test_lxc_info:
