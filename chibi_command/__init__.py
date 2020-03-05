@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from chibi.atlas import Chibi_atlas
 from subprocess import Popen, PIPE
 import itertools
 import logging
@@ -58,9 +59,9 @@ class Command:
         self.args = ( *self.args, *args )
 
         if self.kw is None:
-            self.kw = {}
+            self.kw = Chibi_atlas()
         else:
-            self.kw = self.kw.copy()
+            self.kw = Chibi_atlas( self.kw.copy() )
         self.kw.update( kw )
 
     @property
@@ -102,6 +103,7 @@ class Command:
     def run( self, *args, stdin=None, **kw ):
         logger.info( 'ejecutando "{}"'.format( self.preview( *args, **kw ) ) )
         proc = self._build_proccess( *args, stdin=stdin, **kw )
+
         if isinstance( stdin, str ):
             result, error = proc.communicate( stdin.encode() )
         else:

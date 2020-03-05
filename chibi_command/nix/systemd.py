@@ -5,6 +5,9 @@ import json
 from chibi_command import Command_result
 
 
+__all__ = [ 'Systemctl' ]
+
+
 class Journal_status( Command_result ):
     def __init__( self, result, error, return_code ):
         super().__init__( result, error, return_code )

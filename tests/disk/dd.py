@@ -1,9 +1,5 @@
 from unittest import TestCase
-import copy
 
-from chibi_command import Command
-from chibi_command import Command_result
-from chibi_command.nix import Systemctl, Journal_status
 from chibi_command.disk.dd import DD
 
 

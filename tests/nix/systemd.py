@@ -4,7 +4,8 @@ import copy
 from chibi.atlas import Chibi_atlas
 from chibi_command import Command
 from chibi_command import Command_result
-from chibi_command.nix import Systemctl, Journal_status, Journal_show
+from chibi_command.nix import Systemctl
+from chibi_command.nix.systemd import Journal_status, Journal_show
 
 
 class Test_systemctl( TestCase ):
