@@ -22,12 +22,26 @@ class Test_lxc_attach( TestCase ):
 
     def test_add_double_dash_in_end( self ):
         preview = lxc.Attach.name( 'test' ).preview( 'some_command' )
-        self.assertEqual( preview, 'lxc-attach --clear-env -n test -- some_command' )
+        self.assertEqual(
+            preview, 'lxc-attach --clear-env -n test -- some_command' )
 
     def test_name_return_instance( self ):
         c = lxc.Attach()
         c2 = c.name( 'test' )
         self.assertIs( c, c2 )
+
+    def test_set_var_class( self ):
+        c = lxc.Attach.set_var( 'test', 'asdf' )
+        self.assertEqual(
+            c.preview(),
+            "lxc-attach --clear-env --set-var test=asdf --")
+
+    def test_set_var_instance( self ):
+        c = lxc.Attach()
+        c.set_var( 'test', 'asdf' )
+        self.assertEqual(
+            c.preview(),
+            "lxc-attach --clear-env --set-var test=asdf --")
 
     def test_when_run_a_chibi_command_should_be_sended_to_the_contaner( self ):
         command = Systemctl.status( 'unknow' )

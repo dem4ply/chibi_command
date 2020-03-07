@@ -80,6 +80,15 @@ class Attach( Command ):
         self.add_args( '-n', name )
         return self
 
+    @Chibi_hybrid
+    def set_var( cls, name, value ):
+        return cls( '--set-var', f"{name}={value}" )
+
+    @set_var.instancemethod
+    def set_var( self, name, value ):
+        self.add_args( '--set-var', f"{name}={value}" )
+        return self
+
     def build_tuple( self, *args, **kw ):
         new_args = []
         for arg in args:
