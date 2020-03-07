@@ -68,6 +68,7 @@ class Start( Command ):
 
 class Attach( Command ):
     command = 'lxc-attach'
+    args = ( '--clear-env', )
     captive = False
 
     @Chibi_hybrid

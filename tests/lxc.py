@@ -22,7 +22,7 @@ class Test_lxc_attach( TestCase ):
 
     def test_add_double_dash_in_end( self ):
         preview = lxc.Attach.name( 'test' ).preview( 'some_command' )
-        self.assertEqual( preview, 'lxc-attach -n test -- some_command' )
+        self.assertEqual( preview, 'lxc-attach --clear-env -n test -- some_command' )
 
     def test_name_return_instance( self ):
         c = lxc.Attach()
@@ -33,7 +33,8 @@ class Test_lxc_attach( TestCase ):
         command = Systemctl.status( 'unknow' )
         result = lxc.Attach().name( 'some one' ).preview( command )
         self.assertEqual(
-            'lxc-attach -n some one -- systemctl --output=json status unknow',
+            'lxc-attach --clear-env -n some one '
+            '-- systemctl --output=json status unknow',
             result )
 
 
