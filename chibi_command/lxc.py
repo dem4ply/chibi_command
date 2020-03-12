@@ -5,6 +5,8 @@ from chibi_hybrid.chibi_hybrid import Chibi_hybrid
 
 class Info_result( Command_result ):
     def parse_result( self ):
+        if not self:
+            return
         result = Chibi_atlas()
         for l in self.result.split( '\n' ):
             l = l.strip()
