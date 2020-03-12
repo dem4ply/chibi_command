@@ -19,7 +19,7 @@ class Info_result( Command_result ):
 
     @property
     def is_running( self ):
-        return self.result.state == 'running'
+        return self and self.result.state == 'running'
 
 
 class Create( Command ):
