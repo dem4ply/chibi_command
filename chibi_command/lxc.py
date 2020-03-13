@@ -44,6 +44,9 @@ class Create( Command ):
         self.add_args( '-t', template )
         return self
 
+    def parameters( self, *args ):
+        self.add_args( '--', *args )
+
 
 class Start( Command ):
     command = 'lxc-start'
