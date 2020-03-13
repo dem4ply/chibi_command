@@ -46,6 +46,7 @@ class Create( Command ):
 
     def parameters( self, *args ):
         self.add_args( '--', *args )
+        return self
 
 
 class Start( Command ):
