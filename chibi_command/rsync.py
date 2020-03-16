@@ -44,6 +44,15 @@ class Rsync( Command ):
         return self
 
     @Chibi_hybrid
+    def update( cls ):
+        return cls.options( '-u' )
+
+    @update.instancemethod
+    def update( self ):
+        self.options( '-u' )
+        return self
+
+    @Chibi_hybrid
     def human( cls ):
         return cls.options( '-h' )
 
