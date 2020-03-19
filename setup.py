@@ -33,6 +33,6 @@ setup(
     name='chibi_command',
     packages=find_packages(include=['chibi_command', 'chibi_command.*']),
     url='https://github.com/dem4ply/chibi_command',
-    version='0.1.6',
+    version='0.2.0',
     zip_safe=False,
 )
