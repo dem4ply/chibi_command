@@ -13,44 +13,48 @@ class Test_iptables( TestCase ):
             "iptables --table nat", result.preview() )
 
     def test_append( self ):
-        result = Iptables.table( 'nat' ).append()
+        result = Iptables.table( 'nat' ).append( "PREROUTING" )
         self.assertEqual(
-            "iptables --table nat --append ", result.preview() )
+            "iptables --table nat --append PREROUTING", result.preview() )
 
     def test_protocol( self ):
-        result = Iptables.table( 'nat' ).append().protocol( 'tcp' )
+        result = Iptables.table( 'nat' ).append( "PREROUTING" ).protocol( 'tcp' )
         self.assertEqual(
-            "iptables --table nat --append  --protocol tcp", result.preview() )
+            "iptables --table nat --append PREROUTING --protocol tcp", result.preview() )
 
     def test_protocol( self ):
-        result = Iptables.table( 'nat' ).append().protocol( 'tcp' )
+        result = Iptables.table( 'nat' ).append( "PREROUTING")
+        result = result.protocol( 'tcp' )
         result.in_interface( 'eth1' )
         self.assertEqual(
-            "iptables --table nat --append  --protocol tcp --in-interface eth1",
+            "iptables --table nat --append PREROUTING --protocol tcp --in-interface eth1",
             result.preview() )
 
     def test_destination_port( self ):
-        result = Iptables.table( 'nat' ).append().protocol( 'tcp' )
+        result = Iptables.table( 'nat' ).append( "PREROUTING")
+        result = result.protocol( 'tcp' )
         result.in_interface( 'eth1' ).destination_port( 8000 )
         self.assertEqual(
-            "iptables --table nat --append  --protocol tcp --in-interface eth1"
+            "iptables --table nat --append PREROUTING --protocol tcp --in-interface eth1"
             " --destination-port 8000",
             result.preview() )
 
     def test_jump( self ):
-        result = Iptables.table( 'nat' ).append().protocol( 'tcp' )
+        result = Iptables.table( 'nat' ).append( "PREROUTING")
+        result = result.protocol( 'tcp' )
         result.in_interface( 'eth1' ).destination_port( 8000 ).jump( 'DNAT' )
         self.assertEqual(
-            "iptables --table nat --append  --protocol tcp --in-interface eth1"
+            "iptables --table nat --append PREROUTING --protocol tcp --in-interface eth1"
             " --destination-port 8000 --jump DNAT",
             result.preview() )
 
     def test_to_destination( self ):
-        result = Iptables.table( 'nat' ).append().protocol( 'tcp' )
+        result = Iptables.table( 'nat' ).append( "PREROUTING")
+        result = result.protocol( 'tcp' )
         result.in_interface( 'eth1' ).destination_port( 8000 ).jump( 'DNAT' )
         result.to_destination( "127.0.0.1", 8000 )
         self.assertEqual(
-            "iptables --table nat --append  --protocol tcp --in-interface eth1"
+            "iptables --table nat --append PREROUTING --protocol tcp --in-interface eth1"
             " --destination-port 8000 --jump DNAT "
             "--to-destination 127.0.0.1:8000",
             result.preview() )

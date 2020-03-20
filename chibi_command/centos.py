@@ -105,12 +105,12 @@ class Iptables( Command ):
         return self
 
     @Chibi_hybrid
-    def append( cls ):
-        return cls( append="" )
+    def append( cls, chain ):
+        return cls( append=chain )
 
     @append.instancemethod
-    def append( self ):
-        self.add_args( append="" )
+    def append( self, chain ):
+        self.add_args( append=chain )
         return self
 
     @Chibi_hybrid
@@ -175,8 +175,8 @@ class Iptables( Command ):
             ip = f"{ip}:{port}"
         return cls( **{ 'to-destination': port } )
 
-    @destination_port.instancemethod
-    def destination_port( self, ip, port=None):
+    @to_destination.instancemethod
+    def to_destination( self, ip, port=None):
         if port is not None:
             ip = f"{ip}:{port}"
 
