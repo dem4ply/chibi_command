@@ -90,8 +90,8 @@ class Firewall_cmd( Command ):
         return cls( permanent, "--add-port={}/{}".format( ports, kind ) )
 
 
-class Iptable( Command ):
-    command = "iptable"
+class Iptables( Command ):
+    command = "iptables"
     kw_format = "--{key} {value}"
 
 
