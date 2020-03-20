@@ -92,9 +92,12 @@ class Command:
     def build_kw( self, **kw ):
         params = self.kw.copy()
         params.update( kw )
-        return tuple(
-            self.kw_format.format( key=k, value=v )
-            for k, v in params.items() )
+        result = []
+        for k, v in params.items():
+            r = self.kw_format.format( key=k, value=v )
+            r = r.split( ' ', 1 )
+            result += r
+        return result
 
     def preview( self, *args, **kw ):
         tuples = self.build_tuple( *args, **kw )
