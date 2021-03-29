@@ -82,6 +82,7 @@ class Command:
         arguments = self.build_tuple( *args, **kw )
         logger.debug(
             'coamndo con argumentos "{}"'.format( str( arguments  ) ) )
+        arguments = tuple( map( lambda x: str( x ), arguments ) )
         proc = Popen(
             arguments, stdin=stdin, stdout=self.stdout, stderr=self.stderr )
         return proc
@@ -101,10 +102,11 @@ class Command:
 
     def preview( self, *args, **kw ):
         tuples = self.build_tuple( *args, **kw )
+        tuples = map( lambda x: str( x ), tuples )
         return " ".join( tuples )
 
     def run( self, *args, stdin=None, **kw ):
-        logger.info( 'ejecutando "{}"'.format( self.preview( *args, **kw ) ) )
+        logger.debug( 'ejecutando "{}"'.format( self.preview( *args, **kw ) ) )
         proc = self._build_proccess( *args, stdin=stdin, **kw )
 
         if isinstance( stdin, str ):

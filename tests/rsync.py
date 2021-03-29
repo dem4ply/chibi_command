@@ -27,4 +27,4 @@ class Test_rsync( TestCase ):
 
     def test_clone_dir( self ):
         func = Rsync.clone_dir()
-        self.assertEqual( 'rsync -a -z -u', func.preview() )
+        self.assertEqual( 'rsync -a -u', func.preview() )

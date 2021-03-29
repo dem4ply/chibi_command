@@ -4,9 +4,9 @@ from chibi_hybrid.chibi_hybrid import Chibi_hybrid
 
 class Mount( Command ):
     command = 'mount'
-    captive = True
+    captive = False
 
 
 class Umount( Command ):
     command = 'umount'
-    captive = True
+    captive = False

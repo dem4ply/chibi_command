@@ -71,13 +71,21 @@ class Rsync( Command ):
         return self
 
     @Chibi_hybrid
+    def ignore( cls ):
+        return cls.options( '-I' )
+
+    @update.instancemethod
+    def ignore( self ):
+        self.options( '-I' )
+        return self
+
+    @Chibi_hybrid
     def clone_dir( cls ):
         instance = cls.archive_mode()
-        instance.compress()
         instance.update()
         return instance
 
     @clone_dir.instancemethod
     def clone_dir( self ):
-        self.archive_mode().compress().update()
+        self.archive_mode().update()
         return self

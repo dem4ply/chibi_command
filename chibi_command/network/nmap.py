@@ -1,3 +1,4 @@
+from chibi_command import Command
 from chibi.atlas import loads
 from chibi.snippet.xml import guaranteed_list
 
@@ -12,7 +13,7 @@ class Nmap_result( Command_result ):
 
 
 
-class Nmap( *args, stdout=True ):
+class Nmap( Command ):
     command = 'nmap'
     args = ( '-oX', '-' )
     captive = True

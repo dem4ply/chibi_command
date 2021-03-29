@@ -17,13 +17,14 @@ class Info_result( Command_result ):
             result[k.lower()] = v.lower()
         self.result = result
 
+    # lo dejare de usar
     @property
     def is_running( self ):
         return self and self.result.state == 'running'
 
 
-class Create( Command ):
-    command = 'lxc-create'
+class LXC( Command ):
+    command = 'lxc'
     captive = False
 
     @Chibi_hybrid
@@ -34,6 +35,11 @@ class Create( Command ):
     def name( self, name ):
         self.add_args( '-n', name )
         return self
+
+
+class Create( LXC ):
+    command = 'lxc-create'
+    captive = False
 
     @Chibi_hybrid
     def template( cls, template ):
@@ -49,18 +55,9 @@ class Create( Command ):
         return self
 
 
-class Start( Command ):
+class Start( LXC ):
     command = 'lxc-start'
     captive = False
-
-    @Chibi_hybrid
-    def name( cls, name ):
-        return cls( '-n', name )
-
-    @name.instancemethod
-    def name( self, name ):
-        self.add_args( '-n', name )
-        return self
 
     @Chibi_hybrid
     def daemon( cls ):
@@ -72,19 +69,15 @@ class Start( Command ):
         return self
 
 
-class Attach( Command ):
+class Stop( LXC ):
+    command = 'lxc-stop'
+    captive = False
+
+
+class Attach( LXC ):
     command = 'lxc-attach'
     args = ( '--clear-env', )
     captive = False
-
-    @Chibi_hybrid
-    def name( cls, name ):
-        return cls( '-n', name )
-
-    @name.instancemethod
-    def name( self, name ):
-        self.add_args( '-n', name )
-        return self
 
     @Chibi_hybrid
     def set_var( cls, name, value ):
@@ -106,17 +99,13 @@ class Attach( Command ):
             self.command, *self.build_kw( **kw ), *self.args, '--', *new_args )
 
 
-class Info( Command ):
+class Info( LXC ):
     command = 'lxc-info'
     captive = True
     args = ( '-H', )
     result_class = Info_result
 
-    @Chibi_hybrid
-    def name( cls, name ):
-        return cls( '-n', name )
 
-    @name.instancemethod
-    def name( self, name ):
-        self.add_args( '-n', name )
-        return self
+class Destroy( LXC ):
+    command = 'lxc-destroy'
+    captive = False

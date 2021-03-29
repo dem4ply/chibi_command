@@ -1,8 +1,8 @@
-from chibi.atlas import Chibi_atlas
-from chibi_command import Command
 import json
 
-from chibi_command import Command_result
+from chibi.atlas import Chibi_atlas
+
+from chibi_command import Command, Command_result
 
 
 __all__ = [ 'Systemctl' ]

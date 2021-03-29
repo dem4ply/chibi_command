@@ -6,6 +6,6 @@ class Vfat( Command ):
     captive = False
 
 
-class Ext4( Commnad ):
+class Ext4( Command ):
     command = 'mkfs.ext4'
     captive = False
