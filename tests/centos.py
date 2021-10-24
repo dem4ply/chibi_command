@@ -1,8 +1,4 @@
 from unittest import TestCase
-
-from chibi.atlas import Chibi_atlas
-from chibi_command import lxc
-from chibi_command.nix import Systemctl
 from chibi_command.centos import Iptables
 
 
@@ -22,7 +18,7 @@ class Test_iptables( TestCase ):
         self.assertEqual(
             "iptables --table nat --append PREROUTING --protocol tcp", result.preview() )
 
-    def test_protocol( self ):
+    def test_protocol_tcp( self ):
         result = Iptables.table( 'nat' ).append( "PREROUTING")
         result = result.protocol( 'tcp' )
         result.in_interface( 'eth1' )
