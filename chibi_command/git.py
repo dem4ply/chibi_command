@@ -1,13 +1,22 @@
 import logging
-from git import Repo
+#from git import Repo
 from chibi.file import Chibi_path
 from chibi_command import Command
+from chibi_requests import Chibi_url
 
 
 logger = logging.getLogger( 'chibi_command.git' )
 
 
-class Git:
+class Git( Command ):
+    command = 'git'
+    captive = False
+
+    @staticmethod
+    def get_repo_name( url ):
+        url = Chibi_url( url )
+        name = url.base_name.rsplit( '.git', 1 )[0]
+
     @classmethod
     def repo( cls, src ):
         if src is None:
@@ -27,9 +36,12 @@ class Git:
             destino de donde se clonara el repositorio
             por default es el directorio de trabajo
         """
-        if dest is None:
-            dest = Chibi_path.current_dir()
-        Repo.clone_from( url, str( dest ) )
+        if dest is not None:
+            dest = Chibi_path( dest )
+            command = cls( 'clone', url, dest )
+        else:
+            command = cls( 'clone', url )
+        return command.run()
 
     @classmethod
     def pull( cls, src=None ):
@@ -41,12 +53,51 @@ class Git:
         src: string
             ruta del repositorio que se quiere hacer pull
         """
-        repo = cls.repo( src )
-        repo.remote().pull()
+        if src is not None:
+            src = Chibi_path( src )
+            command = cls(
+                f'--git-dir={src}/.git', f'--work-tree={src}',
+                'pull' )
+        else:
+            command = cls( 'pull' )
+        return command.run()
 
     @classmethod
-    def checkout( cls, branch, src=None ):
-        repo = cls.repo( src )
-        current_branch = repo.active_branch
-        logger.info( f"cambiando '{current_branch.name}' a '{branch}'" )
-        repo.git.checkout( branch )
+    def checkout( cls, branch=None, src=None ):
+        if src is not None:
+            src = Chibi_path( src )
+            if not src.exists:
+                logger.error( f"el directorio {src} no existe" )
+                return
+        if branch is not None:
+            if src:
+                command = cls(
+                    f'--git-dir={src}/.git', f'--work-tree={src}',
+                    'checkout', branch )
+            else:
+                command = cls( 'checkout', branch )
+        else:
+            if src:
+                command = cls(
+                    f'--git-dir={src}/.git', f'--work-tree={src}',
+                    'checkout' )
+            else:
+                command = cls( 'checkout' )
+        return command.run()
+
+    @classmethod
+    def checkout_track( cls, branch=None, src=None ):
+        if src is not None:
+            src = Chibi_path( src )
+            if not src.exists:
+                logger.error( f"el directorio {src} no existe" )
+                return
+        if branch is not None:
+            if src:
+                command = cls(
+                    f'--git-dir={src}/.git', f'--work-tree={src}',
+                    'checkout', '--track', branch )
+            else:
+                command = cls( 'checkout', '--track', branch )
+            return command.run()
+        raise NotImplementedError()
