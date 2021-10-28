@@ -29,19 +29,42 @@ class Iptables( Command ):
         return self
 
     @Chibi_hybrid
-    def delete( cls ):
-        return cls( delete="" )
+    def list ( cls, chain=None ):
+        if chain:
+            return cls( '--list', chain )
+        return cls( '--list' )
+
+    @list.instancemethod
+    def list( self, chain, ):
+        if chain:
+            self.add_args( '--list', chain, )
+        else:
+            self.add_args( '--list', )
+        return self
+
+    @Chibi_hybrid
+    def delete( cls, chain=None, rule=None ):
+        command = cls( '--delete', )
+        if chain:
+            command.add_args( chain )
+        if rule:
+            command.add_args( rule )
+        return command
 
     @delete.instancemethod
-    def delete( self ):
-        self.add_args( delete="" )
+    def delete( self, chain=None, rule=None ):
+        self.add_args( '--delete', )
+        if chain:
+            self.add_args( chain )
+        if rule:
+            self.add_args( rule )
         return self
 
     @Chibi_hybrid
     def line_numbers( cls ):
         return cls( '--line-numbers' )
 
-    @delete.instancemethod
+    @line_numbers.instancemethod
     def line_numbers( self ):
         self.add_args( '--line-numbers' )
         return self

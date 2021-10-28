@@ -8,6 +8,11 @@ class Test_iptables( TestCase ):
         self.assertEqual(
             "iptables --table nat", result.preview() )
 
+    def test_list( self ):
+        result = Iptables.list()
+        self.assertEqual(
+            "iptables --list", result.preview() )
+
     def test_append( self ):
         result = Iptables.table( 'nat' ).append( "PREROUTING" )
         self.assertEqual(
@@ -58,4 +63,4 @@ class Test_iptables( TestCase ):
     def test_delete( self ):
         result = Iptables.table( 'nat' ).delete()
         self.assertEqual(
-            "iptables --table nat --delete ", result.preview() )
+            "iptables --table nat --delete", result.preview() )
