@@ -2,7 +2,7 @@ from chibi_hybrid.chibi_hybrid import Chibi_hybrid
 from chibi_command import Command
 
 
-__all__ = [ 'Iptables' ]
+__all__ = [ 'Iptables', 'Firewall_cmd' ]
 
 
 class Iptables( Command ):
@@ -98,3 +98,34 @@ class Iptables( Command ):
         kw = { 'to-destination': ip }
         self.add_args( **kw )
         return self
+
+
+class Firewall_cmd( Command ):
+    command = "firewall-cmd"
+
+    @classmethod
+    def reload( cls ):
+        """
+        """
+        result = cls( '--reload' )()
+        return result
+
+    @classmethod
+    def add_port( cls, ports, kind='tcp', permanent=True ):
+        """
+        agrega un puerto usando firewall-cmd
+
+        Parameters
+        ==========
+        ports: str
+            formato de puertos puede ser el numero o un rango
+            25672, 5671-5672
+        kind: str
+            tipo del puerto tcp o udp
+        permanent: bool
+        """
+        if not permanent:
+            raise NotImplementedError
+        else:
+            permanent = '--permanent'
+        return cls( permanent, "--add-port={}/{}".format( ports, kind ) )
