@@ -2,7 +2,7 @@ import json
 
 from chibi.atlas import Chibi_atlas
 
-from chibi_command import Command, Command_result
+from chibi_command import Command, Command_result, Command_json_result
 
 
 __all__ = [ 'Systemctl' ]
@@ -80,3 +80,7 @@ class Systemctl( Command ):
     @classmethod
     def show( cls, *services ):
         return cls( 'show', *services, result_class=Journal_show )
+
+    @classmethod
+    def list_units( cls ):
+        return cls( 'list-units', '--global', result_class=Command_json_result )

@@ -3,6 +3,9 @@ from chibi_command import Command, Command_result
 from chibi_hybrid.chibi_hybrid import Chibi_hybrid
 
 
+__all__ = [ 'Create', 'Start', 'Stop', 'Attach', 'Info', 'Destroy' ]
+
+
 class Info_result( Command_result ):
     def parse_result( self ):
         if not self:
@@ -95,6 +98,11 @@ class Attach( LXC ):
                 new_args += list( arg.build_tuple() )
             else:
                 new_args.append( arg )
+        if self.delegate:
+            delegate_tuple = self.build_delegate()
+            return (
+                *delegate_tuple, self.command,
+                *self.build_kw( **kw ), *self.args, '--', *new_args )
         return (
             self.command, *self.build_kw( **kw ), *self.args, '--', *new_args )
 

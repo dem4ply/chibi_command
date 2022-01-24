@@ -33,3 +33,12 @@ class Test_systemctl( TestCase ):
         self.assertTrue( result )
         self.assertIsInstance( result, Journal_show )
         self.assertIsInstance( result.result, Chibi_atlas )
+
+    def test_list_units( self ):
+        result = Systemctl.list_units().run()
+        for unit in result.result:
+            self.assertIn( 'active', unit )
+            self.assertIn( 'description', unit )
+            self.assertIn( 'load', unit )
+            self.assertIn( 'sub', unit )
+            self.assertIn( 'unit', unit )

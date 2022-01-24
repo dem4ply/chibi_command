@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from chibi.atlas import Chibi_atlas
+from chibi.atlas import Chibi_atlas, Atlas
 from subprocess import Popen, PIPE
+import json
 import itertools
 import logging
 
@@ -30,6 +31,16 @@ class Command_result:
         pass
 
 
+class Command_json_result( Command_result ):
+    def parse_result( self ):
+        result = json.loads( self.result )
+        result = Atlas( result )
+        self.result = result
+
+    def __iter__( self ):
+        return iter( self.result )
+
+
 class Command:
     command = ''
     captive = False
@@ -37,9 +48,15 @@ class Command:
     kw = None
     kw_format = "{key} {value}"
     result_class = Command_result
+    delegate = None
 
     def __init__(
-            self, *args, captive=None, command=None, result_class=None, **kw ):
+            self, *args, captive=None, command=None, result_class=None,
+            delegate=None, **kw ):
+
+        if delegate is not None:
+            self.delegate = delegate
+
         if captive is not None:
             self.captive = captive
 
@@ -88,7 +105,26 @@ class Command:
         return proc
 
     def build_tuple( self, *args, **kw ):
-        return ( self.command, *self.build_kw( **kw ), *self.args, *args )
+        if self.delegate:
+            delegate_tuples = self.build_delegate()
+            return (
+                *delegate_tuples, self.command, *self.build_kw( **kw ),
+                *self.args, *args )
+        else:
+            return (
+                self.command, *self.build_kw( **kw ), *self.args, *args )
+
+    def prepare_delegate( self ):
+        delegate = self.delegate( unit=f'chibi_{self.command}' )
+        return delegate
+
+    def build_delegate( self ):
+        if isinstance( self.delegate, type ):
+            delegate = self.prepare_delegate()
+            delegate_tuples = delegate.build_tuple()
+        else:
+            raise NotImplementedError
+        return delegate_tuples
 
     def build_kw( self, **kw ):
         params = self.kw.copy()
@@ -129,6 +165,8 @@ class Command:
     def __eq__( self, other ):
         if isinstance( other, Command ):
             return self.preview() == other.preview()
+        elif isinstance( other, str ):
+            return self.preview() == other
         else:
             raise NotImplementedError
 
@@ -136,8 +174,18 @@ class Command:
         args = tuple( *self.args )
         kw = self.kw.copy()
         new_command = type( self )(
-            *args, command=self.command, captive=self.captive, **kw )
+            *args, command=self.command, captive=self.captive,
+            delegate=self.delegate, **kw )
         return new_command
+
+    def __str__( self ):
+        return self.preview()
+
+    def __repr__( self ):
+        tuples = self.build_tuple()
+        tuples = map( lambda x: f'"{x}"', tuples )
+        tuples = ", ".join( tuples )
+        return f"Command( {tuples} )"
 
     def add_args( self, *new_args, **new_kw ):
         if new_args:
