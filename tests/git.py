@@ -20,40 +20,41 @@ class Test_git( TestCase ):
 
 class Test_git_clone( Test_git ):
     def test_when_clone_with_destiny_should_doe_in_that_place( self ):
-        result = Git.clone( self.repo_url, self.root_dir)
+        result = Git.clone( self.repo_url, self.root_dir, captive=True )
         self.assertTrue( result )
         self.assertTrue( list( self.root_dir.ls() ) )
 
     def test_when_clone_without_destiny_should_use_current_path( self ):
         cd( self.root_dir )
-        result = Git.clone( self.repo_url )
+        result = Git.clone( self.repo_url, captive=True )
         self.assertTrue( result )
         self.assertTrue( ( self.root_dir + 'chibi_command' ).exists )
 
 class Test_git_checkout( Test_git ):
     def setUp( self ):
         super().setUp()
-        result = Git.clone( self.repo_url, self.root_dir )
+        Git.clone( self.repo_url, self.root_dir, captive=True )
 
     def test_when_do_checkout_wihtout_brnach_should_restore_files( self ):
-        result = Git.checkout( src=self.root_dir )
+        result = Git.checkout( src=self.root_dir, captive=True )
         self.assertTrue( result )
 
     def test_when_do_checkout_wiht_brnach_should_change_branch( self ):
-        result = Git.checkout( branch='origin/master', src=self.root_dir )
+        result = Git.checkout(
+            branch='origin/master', src=self.root_dir, captive=True )
         self.assertTrue( result )
 
     def test_with_track_should_change_the_branch( self ):
         result = Git.checkout_track(
-            branch='origin/master', src=self.root_dir )
+            branch='origin/master', src=self.root_dir, captive=True )
         self.assertFalse( result )
 
 class Test_git_pull( Test_git ):
     def setUp( self ):
         super().setUp()
-        result = Git.clone( self.repo_url, self.root_dir )
+        result = Git.clone( self.repo_url, self.root_dir, captive=True )
         self.assertTrue( result )
 
     def test_should_work( self ):
-        result = Git.pull( src=self.root_dir )
+        result = Git.pull( src=self.root_dir, captive=True )
         self.assertTrue( result )

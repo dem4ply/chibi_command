@@ -24,7 +24,7 @@ class Git( Command ):
         return Repo( src )
 
     @classmethod
-    def clone( cls, url, dest=None ):
+    def clone( cls, url, dest=None, **kw ):
         """
         clona el repositorio de la url
 
@@ -38,13 +38,13 @@ class Git( Command ):
         """
         if dest is not None:
             dest = Chibi_path( dest )
-            command = cls( 'clone', url, dest )
+            command = cls( 'clone', url, dest, **kw )
         else:
-            command = cls( 'clone', url )
+            command = cls( 'clone', url, **kw )
         return command.run()
 
     @classmethod
-    def pull( cls, src=None ):
+    def pull( cls, src=None, **kw ):
         """
         hace pull a un repositorio
 
@@ -59,11 +59,11 @@ class Git( Command ):
                 f'--git-dir={src}/.git', f'--work-tree={src}',
                 'pull' )
         else:
-            command = cls( 'pull' )
+            command = cls( 'pull', **kw )
         return command.run()
 
     @classmethod
-    def checkout( cls, branch=None, src=None ):
+    def checkout( cls, branch=None, src=None, **kw ):
         if src is not None:
             src = Chibi_path( src )
             if not src.exists:
@@ -73,20 +73,20 @@ class Git( Command ):
             if src:
                 command = cls(
                     f'--git-dir={src}/.git', f'--work-tree={src}',
-                    'checkout', branch )
+                    'checkout', branch, **kw )
             else:
-                command = cls( 'checkout', branch )
+                command = cls( 'checkout', branch, **kw )
         else:
             if src:
                 command = cls(
                     f'--git-dir={src}/.git', f'--work-tree={src}',
-                    'checkout' )
+                    'checkout', **kw )
             else:
-                command = cls( 'checkout' )
+                command = cls( 'checkout', **kw )
         return command.run()
 
     @classmethod
-    def checkout_track( cls, branch=None, src=None ):
+    def checkout_track( cls, branch=None, src=None, **kw ):
         if src is not None:
             src = Chibi_path( src )
             if not src.exists:
@@ -96,8 +96,8 @@ class Git( Command ):
             if src:
                 command = cls(
                     f'--git-dir={src}/.git', f'--work-tree={src}',
-                    'checkout', '--track', branch )
+                    'checkout', '--track', branch, **kw )
             else:
-                command = cls( 'checkout', '--track', branch )
+                command = cls( 'checkout', '--track', branch, **kw )
             return command.run()
         raise NotImplementedError()
