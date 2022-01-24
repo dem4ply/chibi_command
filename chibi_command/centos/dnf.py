@@ -58,6 +58,7 @@ class Dnf( Command ):
         result = cls( 'clean', 'all' )()
         return result
 
+    @classmethod
     def config_manager( cls, package ):
         result = cls( 'config-manager', '--set-enabled', package )()
         return result
