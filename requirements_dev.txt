@@ -1,4 +1,4 @@
-GitPython==2.1.5
+GitPython==3.1.30
 Sphinx==1.8.5
 bump2version
 coverage
