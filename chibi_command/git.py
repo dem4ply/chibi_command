@@ -108,4 +108,5 @@ class Git( Command ):
             else:
                 raise NotImplementedError(
                     f"branch={branch}, src={src}, kw={kw}" )
+            return command.run()
         raise NotImplementedError( f"branch={branch}, src={src}, kw={kw}" )
