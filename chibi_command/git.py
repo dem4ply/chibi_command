@@ -100,4 +100,4 @@ class Git( Command ):
             else:
                 command = cls( 'checkout', '--track', branch, **kw )
             return command.run()
-        raise NotImplementedError()
+        raise NotImplementedError( f"branch={branch}, src={src}, kw={kw}" )
