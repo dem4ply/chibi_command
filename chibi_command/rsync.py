@@ -71,19 +71,10 @@ class Rsync( Command ):
         return self
 
     @Chibi_hybrid
-    def update( cls ):
-        return cls.options( '-u' )
-
-    @update.instancemethod
-    def update( self ):
-        self.options( '-u' )
-        return self
-
-    @Chibi_hybrid
     def ignore( cls ):
         return cls.options( '-I' )
 
-    @update.instancemethod
+    @ignore.instancemethod
     def ignore( self ):
         self.options( '-I' )
         return self
@@ -97,4 +88,14 @@ class Rsync( Command ):
     @clone_dir.instancemethod
     def clone_dir( self ):
         self.archive_mode().update()
+        return self
+
+    @Chibi_hybrid
+    def checksum( cls ):
+        instance = cls.options( '--checksum' )
+        return instance
+
+    @checksum.instancemethod
+    def checksum( self ):
+        self.options( '--checksum' )
         return self
