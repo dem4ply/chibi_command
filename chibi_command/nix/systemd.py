@@ -83,4 +83,5 @@ class Systemctl( Command ):
 
     @classmethod
     def list_units( cls ):
-        return cls( 'list-units', '--global', result_class=Command_json_result )
+        # return cls( 'list-units', '--global', result_class=Command_json_result )
+        return cls( 'list-units', result_class=Command_json_result )
