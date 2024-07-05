@@ -1,9 +1,27 @@
+from chibi.snippet import regex
 from chibi.atlas import Chibi_atlas
 from chibi_command import Command, Command_result
 from chibi_hybrid.chibi_hybrid import Chibi_hybrid
 
 
 __all__ = [ 'Create', 'Start', 'Stop', 'Attach', 'Info', 'Destroy' ]
+
+re_ipv6 = (
+    r'(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|'
+    r'([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:)'
+    r'{1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1'
+    r',5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}'
+    r':){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{'
+    r'1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA'
+    r'-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a'
+    r'-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0'
+    r'-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,'
+    r'4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}'
+    r':){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9'
+    r'])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0'
+    r'-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]'
+    r'|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]'
+    r'|1{0,1}[0-9]){0,1}[0-9]))' )
 
 
 class Info_result( Command_result ):
@@ -15,8 +33,12 @@ class Info_result( Command_result ):
             l = l.strip()
             if not l:
                 continue
-            k, v = l.split( ':' )
+            k, v = l.split( ':', 1 )
             v = v.strip()
+            if ( 'ip' == k.lower()
+                    and regex.test( re_ipv6, v ) ):
+                k = f"{k}v6"
+            print( k, v )
             result[k.lower()] = v.lower()
         self.result = result
 
