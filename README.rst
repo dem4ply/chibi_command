@@ -13,9 +13,6 @@ chibi_command
         :target: https://chibi-command.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-
-
-
 run terminal commands
 
 
