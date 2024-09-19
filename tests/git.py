@@ -3,18 +3,19 @@ from unittest import TestCase
 from chibi.atlas import Chibi_atlas
 
 from chibi_command.git import Git
+from chibi.file import Chibi_path
 from chibi.file.temp import Chibi_temp_path
-from chibi.file.snippets import cd, current_dir
+from chibi.file.snippets import cd
 
 
 class Test_git( TestCase ):
     def setUp( self ):
         self.repo_url = 'https://github.com/dem4ply/chibi_command.git'
         self.root_dir = Chibi_temp_path()
-        self.old_dir = current_dir()
+        self.old_dir = Chibi_path.current_dir()
 
     def tearDown( self ):
-        if current_dir() != self.old_dir:
+        if Chibi_path.current_dir() != self.old_dir:
             cd( self.old_dir )
 
 
