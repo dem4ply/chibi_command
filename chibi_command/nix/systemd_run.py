@@ -1,3 +1,4 @@
+import itertools
 import json
 
 from chibi.atlas import Chibi_atlas
@@ -30,6 +31,8 @@ class System_run( Command ):
 
     def build_kw( self, **kw ):
         units = Systemctl.list_units().run()
+        units_user = Systemctl.list_units( user=True ).run()
+        units = itertools.chain( iter( units ), iter( units_user ) )
         exists_unit = (
             x[ 'unit' ].startswith( self.kw[ 'unit' ] ) for x in units )
         if any( exists_unit ):

@@ -82,6 +82,8 @@ class Systemctl( Command ):
         return cls( 'show', *services, result_class=Journal_show )
 
     @classmethod
-    def list_units( cls ):
+    def list_units( cls, user=False ):
         # return cls( 'list-units', '--global', result_class=Command_json_result )
+        if user:
+            return cls( 'list-units', '--user', result_class=Command_json_result )
         return cls( 'list-units', result_class=Command_json_result )

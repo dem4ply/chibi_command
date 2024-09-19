@@ -38,7 +38,6 @@ class Info_result( Command_result ):
             if ( 'ip' == k.lower()
                     and regex.test( re_ipv6, v ) ):
                 k = f"{k}v6"
-            print( k, v )
             result[k.lower()] = v.lower()
         self.result = result
 
