@@ -1,5 +1,5 @@
 from unittest import TestCase
-from chibi_command.centos import Iptables
+from chibi_command.centos import Iptables, Firewall_cmd
 
 
 class Test_iptables( TestCase ):
@@ -64,3 +64,17 @@ class Test_iptables( TestCase ):
         result = Iptables.table( 'nat' ).delete()
         self.assertEqual(
             "iptables --table nat --delete", result.preview() )
+
+
+class Test_firewall_cmd( TestCase ):
+    def test_add_port_should_work( self ):
+        command = Firewall_cmd.add_port( 80 )
+        result = command.preview()
+        self.assertEqual(
+            result, "firewall-cmd --permanent --add-port=80/tcp" )
+
+    def test_add_service_should_work( self ):
+        command = Firewall_cmd.add_service( 'http' )
+        result = command.preview()
+        self.assertEqual(
+            result, "firewall-cmd --permanent --add-service=http" )

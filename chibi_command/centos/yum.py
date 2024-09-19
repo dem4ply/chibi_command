@@ -88,5 +88,3 @@ class Firewall_cmd( Command ):
         else:
             permanent = '--permanent'
         return cls( permanent, "--add-port={}/{}".format( ports, kind ) )
-
-
