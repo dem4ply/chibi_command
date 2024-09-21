@@ -152,3 +152,20 @@ class Firewall_cmd( Command ):
         else:
             permanent = '--permanent'
         return cls( permanent, "--add-port={}/{}".format( ports, kind ) )
+
+    @classmethod
+    def add_service( cls, service, permanent=True ):
+        """
+        agrega un servicio usando firewall-cmd
+
+        Parameters
+        ==========
+        service: str
+            nombre del servicio http, https
+        permanent: bool
+        """
+        if not permanent:
+            raise NotImplementedError
+        else:
+            permanent = '--permanent'
+        return cls( permanent, "--add-service={}".format( service ) )
