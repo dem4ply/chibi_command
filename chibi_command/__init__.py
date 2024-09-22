@@ -98,7 +98,7 @@ class Command:
             stdin = PIPE
         arguments = self.build_tuple( *args, **kw )
         logger.debug(
-            'coamndo con argumentos "{}"'.format( str( arguments  ) ) )
+            'comando con argumentos "{}"'.format( str( arguments  ) ) )
         arguments = tuple( map( lambda x: str( x ), arguments ) )
         proc = Popen(
             arguments, stdin=stdin, stdout=self.stdout, stderr=self.stderr )
