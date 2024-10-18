@@ -15,5 +15,5 @@ class Test_pacman( TestCase ):
 
     def test_preview_install_package_should_be_expected( self ):
         pacman = Pacman.install( 'python-chibi', 'python-chibi-command' )
-        expected = 'pacman -S pythhon-chibi python-chibi-command'
+        expected = 'pacman -S python-chibi python-chibi-command'
         self.assertEqual( pacman.preview(), expected )

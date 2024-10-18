@@ -1,8 +1,8 @@
 from chibi_command import Command
 
 
-class Pacman( Command ):
-    command = 'pacman'
+class Yay( Command ):
+    command = 'yay'
     captive = False
 
     @classmethod
