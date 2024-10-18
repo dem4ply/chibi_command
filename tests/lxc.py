@@ -65,7 +65,7 @@ class Test_lxc_info_stopped( Test_lxc_info, TestCase ):
         self.example = """
             Name:           quetzalcoatl\nState:          STOPPED\n
         """
-        self.info = lxc.Info_result( self.example, '', 0 )
+        self.info = lxc.Info_result( self.example, '', 0, command=None )
 
     def test_result_should_process_the_state( self ):
         self.assertFalse( self.info.is_running )
@@ -87,7 +87,7 @@ class Test_lxc_info_running( Test_lxc_info, TestCase ):
             RX bytes:      192296828
             Total bytes:   193695413
         """
-        self.info = lxc.Info_result( self.example, '', 0 )
+        self.info = lxc.Info_result( self.example, '', 0, command=None )
 
     def test_result_should_process_the_state( self ):
         self.assertTrue( self.info.is_running )

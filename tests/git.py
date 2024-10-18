@@ -2,6 +2,7 @@ from unittest import TestCase
 
 from chibi.atlas import Chibi_atlas
 
+from chibi_command import Result_error
 from chibi_command.git import Git
 from chibi.file import Chibi_path
 from chibi.file.temp import Chibi_temp_path
@@ -46,9 +47,9 @@ class Test_git_checkout( Test_git ):
         self.assertTrue( result )
 
     def test_with_track_should_change_the_branch( self ):
-        result = Git.checkout_track(
-            branch='origin/master', src=self.root_dir, captive=True )
-        self.assertFalse( result )
+        with self.assertRaises( Result_error ):
+            result = Git.checkout_track(
+                branch='origin/master', src=self.root_dir, captive=True )
 
 class Test_git_pull( Test_git ):
     def setUp( self ):

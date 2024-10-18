@@ -12,11 +12,24 @@ __version__ = '0.9.1'
 logger = logging.getLogger( 'chibi.command' )
 
 
+class Result_error( Exception ):
+    def __init__( self, result ):
+        self.result = result
+
+    def __str__( self ):
+        return (
+            f"{self.result}\n"
+            f"command: {self.result.command}\n"
+            f"return_code: {self.result.return_code}"
+        )
+
+
 class Command_result:
-    def __init__( self, result, error, return_code ):
+    def __init__( self, result, error, return_code, command ):
         self.result = result
         self.error = error
         self.return_code = return_code
+        self.command = command
         self.parse_result()
 
     def __str__( self ):
@@ -29,6 +42,10 @@ class Command_result:
 
     def parse_result( self ):
         pass
+
+    def throw( self ):
+        if not bool( self ):
+            raise Result_error( self )
 
 
 class Command_json_result( Command_result ):
@@ -49,6 +66,7 @@ class Command:
     kw_format = "{key} {value}"
     result_class = Command_result
     delegate = None
+    raise_on_fail = True
 
     def __init__(
             self, *args, captive=None, command=None, result_class=None,
@@ -142,7 +160,7 @@ class Command:
         return " ".join( tuples )
 
     def run( self, *args, stdin=None, **kw ):
-        logger.debug( 'ejecutando "{}"'.format( self.preview( *args, **kw ) ) )
+        logger.info( 'ejecutando "{}"'.format( self.preview( *args, **kw ) ) )
         proc = self._build_proccess( *args, stdin=stdin, **kw )
 
         if isinstance( stdin, str ):
@@ -154,7 +172,11 @@ class Command:
             result = result.decode( 'utf-8' )
         if error is not None:
             error = error.decode( 'utf-8' )
-        return self.result_class( result, error, proc.returncode )
+        result = self.result_class(
+            result, error, proc.returncode, command=self )
+        if self.raise_on_fail:
+            result.throw()
+        return result
 
     def __call__( self, *args, **kw ):
         return self.run( *args, **kw )

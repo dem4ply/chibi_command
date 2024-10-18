@@ -65,9 +65,9 @@ class Test_delegate( TestCase ):
         self.command = Echo_with_delegate
         self.delegate_preview = System_run().preview()
         self.exist_unit = Command_json_result(
-            '[{"unit": "chibi_echo"}]', '', 0 )
+            '[{"unit": "chibi_echo"}]', '', 0, None )
         self.not_exist_unit = Command_json_result(
-            '[{"unit": "chibi_echo"}]', '', 0 )
+            '[{"unit": "chibi_echo"}]', '', 0, None )
 
     def test_should_work_without_delegate( self ):
         preview = self.command_without_delegate().preview()

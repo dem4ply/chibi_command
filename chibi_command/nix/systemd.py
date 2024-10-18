@@ -9,8 +9,8 @@ __all__ = [ 'Systemctl' ]
 
 
 class Journal_status( Command_result ):
-    def __init__( self, result, error, return_code ):
-        super().__init__( result, error, return_code )
+    def __init__( self, result, error, return_code, command ):
+        super().__init__( result, error, return_code, command )
         pre_parse = self.result.split( '\n' )
         end_of_status = pre_parse.index( '' )
 
@@ -32,8 +32,8 @@ class Journal_status( Command_result ):
 
 
 class Journal_show( Command_result ):
-    def __init__( self, result, error, return_code ):
-        super().__init__( result, error, return_code )
+    def __init__( self, result, error, return_code, command ):
+        super().__init__( result, error, return_code, command )
         pre_parse = self.result.split( '\n' )
 
         result = {}

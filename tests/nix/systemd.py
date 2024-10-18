@@ -3,16 +3,15 @@ import copy
 
 from chibi.atlas import Chibi_atlas
 from chibi_command import Command
-from chibi_command import Command_result
+from chibi_command import Command_result, Result_error
 from chibi_command.nix import Systemctl
 from chibi_command.nix.systemd import Journal_status, Journal_show
 
 
 class Test_systemctl( TestCase ):
     def test_status( self ):
-        result = Systemctl.status( "unkown" ).run()
-        self.assertIsNotNone( result )
-        self.assertFalse( result )
+        with self.assertRaises( Result_error ):
+            result = Systemctl.status( "unkown" ).run()
 
         result = Systemctl.status( "NetworkManager" ).run()
         self.assertIsNotNone( result )
