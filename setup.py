@@ -11,7 +11,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [ 'gitpython>=3.1.41', 'chibi>=0.5.5', 'chibi_hybrid>=0.0.1', ]
+requirements = [
+    'gitpython>=3.1.41', 'chibi>=0.5.5', 'chibi_hybrid>=0.0.1',
+    'chibi-atlas>=1.1.0' ]
 
 setup(
     author="Dem4ply",
