@@ -22,11 +22,17 @@ class Ssh( Command ):
         else:
             preview_commands = map( lambda x: x.preview(), self.commands )
         if fail_fast:
-            result = " && ".join( preview_commands )
+            splitter = '&&'
         else:
-            result = "; ".join( preview_commands )
+            splitter = ';'
+        result = []
+        for command in preview_commands:
+            result.append( command )
+            result.append( splitter )
+        # quita el ultimo splitter porque soy pendejo
+        # y no se como hacerlo de otra forma
         if result:
-            result = f"'{result}'"
+            result.pop()
         return result
 
     def _build_connection( self ):
@@ -35,7 +41,7 @@ class Ssh( Command ):
     def build_tuple( self, *args, sudo=False, **kw ):
         commands = self._concatenate_commands( sudo=sudo )
         if commands:
-            return super().build_tuple( *args, commands, **kw )
+            return super().build_tuple( *args, *commands, **kw )
         return super().build_tuple( *args, **kw )
 
     @property
