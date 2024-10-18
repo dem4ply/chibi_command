@@ -29,11 +29,11 @@ class Info_result( Command_result ):
         if not self:
             return
         result = Chibi_atlas()
-        for l in self.result.split( '\n' ):
-            l = l.strip()
-            if not l:
+        for line in self.result.split( '\n' ):
+            line = line.strip()
+            if not line:
                 continue
-            k, v = l.split( ':', 1 )
+            k, v = line.split( ':', 1 )
             v = v.strip()
             if ( 'ip' == k.lower()
                     and regex.test( re_ipv6, v ) ):

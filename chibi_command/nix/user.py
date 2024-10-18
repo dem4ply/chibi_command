@@ -6,6 +6,7 @@ from chibi_command import Command
 
 __all__ = [ 'User' ]
 
+
 class User( Command ):
     captive = False
 

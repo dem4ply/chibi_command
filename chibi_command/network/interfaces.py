@@ -62,7 +62,7 @@ class Interface_result( Command_result ):
 class Ip( Command ):
     command = 'ip'
     captive = True
-    result_class=Interface_result
+    result_class = Interface_result
 
     @Chibi_hybrid
     def addr( cls ):

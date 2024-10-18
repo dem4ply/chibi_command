@@ -15,9 +15,9 @@ class Ping_result( Command_result ):
         lines = list( filter( bool, lines ) )
         lines.pop( 0 )
         totals = lines[-2].split( ',' )
-        self.count = int( totals[0].split( ' ',1 )[0] )
-        self.received = int( totals[1].strip().split( ' ',1 )[0] )
-        self.loss = totals[1].split( ' ',1 )[0]
+        self.count = int( totals[0].split( ' ', 1 )[0] )
+        self.received = int( totals[1].strip().split( ' ', 1 )[0] )
+        self.loss = totals[1].split( ' ', 1 )[0]
         self.pings = []
         for i in range( self.count ):
             line = lines[i]

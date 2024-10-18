@@ -9,7 +9,6 @@ class Iptables( Command ):
     command = "iptables"
     kw_format = "--{key} {value}"
 
-
     @Chibi_hybrid
     def table( cls, table ):
         return cls( table=table )
@@ -29,7 +28,7 @@ class Iptables( Command ):
         return self
 
     @Chibi_hybrid
-    def list ( cls, chain=None ):
+    def list( cls, chain=None ):
         if chain:
             return cls( '--list', chain )
         return cls( '--list' )
@@ -102,7 +101,7 @@ class Iptables( Command ):
     def jump( cls, target ):
         return cls( jump=target )
 
-    @destination_port.instancemethod
+    @jump.instancemethod
     def jump( self, target ):
         self.add_args( jump=target )
         return self

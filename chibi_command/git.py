@@ -1,5 +1,5 @@
 import logging
-#from git import Repo
+# from git import Repo
 from chibi.file import Chibi_path
 from chibi_command import Command
 from chibi_requests import Chibi_url
@@ -16,12 +16,15 @@ class Git( Command ):
     def get_repo_name( url ):
         url = Chibi_url( url )
         name = url.base_name.rsplit( '.git', 1 )[0]
+        logger.debug( name )
+        raise NotImplementedError()
 
     @classmethod
     def repo( cls, src ):
         if src is None:
             src = Chibi_path.current_dir()
-        return Repo( src )
+        raise NotImplementedError
+        # return Repo( src )
 
     @classmethod
     def clone( cls, url, dest=None, **kw ):

@@ -1,5 +1,3 @@
-from chibi_hybrid.chibi_hybrid import Chibi_hybrid
-
 from chibi_command import Command
 
 

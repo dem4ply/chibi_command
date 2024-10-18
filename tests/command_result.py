@@ -1,4 +1,3 @@
-import copy
 from unittest import TestCase
 from chibi_command import Command_result, Command_json_result, Result_error
 from chibi.atlas import Chibi_atlas

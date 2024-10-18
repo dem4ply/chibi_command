@@ -3,4 +3,4 @@ from .user import *  # noqa
 from .locale import *  # noqa
 
 
-__all__ = systemd.__all__ + user.__all__
+__all__ = systemd.__all__ + user.__all__  # noqa

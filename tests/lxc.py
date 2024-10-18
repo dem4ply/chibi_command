@@ -117,9 +117,9 @@ class Test_lxc_delegate_attach( TestCase ):
         preview = self.lxc.Attach.name( 'test' ).preview( 'some_command' )
         delegate_preview = self.lxc.Attach().prepare_delegate().preview()
         self.assertEqual(
-            preview,
-            ( f'{delegate_preview} lxc-attach --clear-env'
-            ' -n test -- some_command' ) )
+            preview, (
+                f'{delegate_preview} lxc-attach --clear-env'
+                ' -n test -- some_command' ) )
 
     def test_name_return_instance( self ):
         c = self.lxc.Attach()
@@ -130,18 +130,20 @@ class Test_lxc_delegate_attach( TestCase ):
         c = self.lxc.Attach.set_var( 'test', 'asdf' )
         delegate_preview = self.lxc.Attach().prepare_delegate().preview()
         self.assertEqual(
-            c.preview(),
-            ( f"{delegate_preview} lxc-attach --clear-env --set-var"
-            " test=asdf --" ) )
+            c.preview(), (
+                f"{delegate_preview} lxc-attach --clear-env --set-var"
+                " test=asdf --"
+            ) )
 
     def test_set_var_instance( self ):
         c = self.lxc.Attach()
         c.set_var( 'test', 'asdf' )
         delegate_preview = self.lxc.Attach().prepare_delegate().preview()
         self.assertEqual(
-            c.preview(),
-            ( f"{delegate_preview} lxc-attach --clear-env "
-            "--set-var test=asdf --" ) )
+            c.preview(), (
+                f"{delegate_preview} lxc-attach --clear-env "
+                "--set-var test=asdf --"
+            ) )
 
     def test_when_run_a_chibi_command_should_be_sended_to_the_contaner( self ):
         command = Systemctl.status( 'unknow' )

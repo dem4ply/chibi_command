@@ -11,20 +11,20 @@ class QR( Command ):
 
     @Chibi_hybrid
     def output( cls, path ):
-        return cls( '-o', name )
+        return cls( '-o', path )
 
     @output.instancemethod
     def output( self, path ):
-        self.add_args( '-o', name )
+        self.add_args( '-o', path )
         return self
 
     @Chibi_hybrid
     def size( cls, size ):
         return cls( '-s', size )
 
-    @name.instancemethod
+    @size.instancemethod
     def size( self, size ):
-        self.add_args( '-s', size)
+        self.add_args( '-s', size )
         return self
 
     @classmethod
@@ -32,6 +32,8 @@ class QR( Command ):
         if T.lower() == 'wpa-psk':
             T = 'WPA'
         data = f"WIFI:S:{ssid};T:{T};P:{password};;"
+        raise NotImplementedError
+        return data
 
 
 def qr( *args ):

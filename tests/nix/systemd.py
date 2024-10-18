@@ -1,9 +1,6 @@
 from unittest import TestCase
-import copy
-
 from chibi.atlas import Chibi_atlas
-from chibi_command import Command
-from chibi_command import Command_result, Result_error
+from chibi_command import Result_error
 from chibi_command.nix import Systemctl
 from chibi_command.nix.systemd import Journal_status, Journal_show
 

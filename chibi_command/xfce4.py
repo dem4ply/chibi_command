@@ -12,8 +12,8 @@ class Xfconf_query( Command ):
 
     @channel.instancemethod
     def channel( cls, channel ):
-        self.add_args( '-c', channel )
-        return self
+        cls.add_args( '-c', channel )
+        return cls
 
     @Chibi_hybrid
     def prop( cls, prop ):

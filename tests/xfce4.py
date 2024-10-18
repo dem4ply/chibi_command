@@ -1,8 +1,4 @@
 from unittest import TestCase
-import copy
-
-from chibi_command import Command
-from chibi_command import Command_result
 from chibi_command.xfce4 import Xfconf_query
 
 

@@ -12,9 +12,8 @@ class Nmap_result( Command_result ):
         self.result = result
 
 
-
 class Nmap( Command ):
     command = 'nmap'
     args = ( '-oX', '-' )
     captive = True
-    result_class=Nmap_result
+    result_class = Nmap_result

@@ -34,7 +34,7 @@ class Test_wmctrl( TestCase ):
             'maximized_vert', 'maximized_horz' )
         expected = (
             "wmctrl -i -r 0x04e00003 -b "
-        "toggle,maximized_vert,maximized_horz" )
+            "toggle,maximized_vert,maximized_horz" )
         self.assertEqual( result.preview(), expected )
 
 
@@ -59,15 +59,19 @@ class Test_wmctrl_desktop_obj( TestCase ):
 
 class Test_wmctrl_window( TestCase ):
     def setUp( self ):
-        r = ( "0x04a00003  0 130371 -5120 43   2560 1397 "
-        "termite.Termite       lise-meitner dem4ply@lise-meitner:"
-        "~/Documentos/proyectos/work/shneider/mercury_gates_xml_parser_py" )
+        r = (
+            "0x04a00003  0 130371 -5120 43   2560 1397 "
+            "termite.Termite       lise-meitner dem4ply@lise-meitner:"
+            "~/Documentos/proyectos/work/shneider/mercury_gates_xml_parser_py"
+        )
         r = r.split( maxsplit=9 )
         self.example_move = Wmctrl_window( *r )
 
-        r = ( "0x04a00003  -1 130371 -5120 43   2560 1397 "
-        "termite.Termite       lise-meitner dem4ply@lise-meitner:"
-        "~/Documentos/proyectos/work/shneider/mercury_gates_xml_parser_py" )
+        r = (
+            "0x04a00003  -1 130371 -5120 43   2560 1397 "
+            "termite.Termite       lise-meitner dem4ply@lise-meitner:"
+            "~/Documentos/proyectos/work/shneider/mercury_gates_xml_parser_py"
+        )
         r = r.split( maxsplit=9 )
         self.example_cannot_move = Wmctrl_window( *r )
 

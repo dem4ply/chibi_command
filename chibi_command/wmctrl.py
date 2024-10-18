@@ -18,7 +18,10 @@ class Wmctrl_window:
         self.title = args[9]
 
     def __str__( self ):
-        return f"{self.id} {self.column} {self.row} {self.program} {self.title}"
+        return (
+            f"{self.id} {self.column} "
+            f"{self.row} {self.program} {self.title}"
+        )
 
     @property
     def can_move( self ):
@@ -27,7 +30,7 @@ class Wmctrl_window:
     @property
     def row( self ):
         desktop = self.get_desktop()
-        y, r_y = desktop.dg_y , ( desktop.vp_y + self.y )
+        y, r_y = desktop.dg_y, ( desktop.vp_y + self.y )
         size_y = desktop.dg_y / desktop.rows
         if r_y < size_y:
             return 0
@@ -173,7 +176,7 @@ class Wmctrl( Command ):
 
     @Chibi_hybrid
     def move( cls, gravity, x, y, w, h ):
-        return cls( '-e', f"{gravity},{x},{y},{w},{h}" )
+        return cls( '-e', f"{gravity},{x},{y},{w},{h}" )  # noqa
 
     @move.instancemethod
     def move( self, gravity, x, y, w, h ):
