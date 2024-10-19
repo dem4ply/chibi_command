@@ -28,7 +28,28 @@ class Ping_result( Command_result ):
             self.pings.append( ping )
             for item in numbers:
                 k, v = item.split( '=' )
-                ping[ k ] = v
+                if k == 'time':
+                    ping[ k ] = float( v )
+                else:
+                    ping[ k ] = int( v )
+
+    def __str__( self ):
+        return (
+            f"avg = {self.total}/{self.count} = {self.avg}"
+        )
+
+    def __repr__( self ):
+        return (
+            f"ping: avg = {self.total}/{self.count} = {self.avg}"
+        )
+
+    @property
+    def total( self ):
+        return sum( ping.time for ping in self.pings )
+
+    @property
+    def avg( self ):
+        return self.total / self.count
 
 
 class Ping( Command ):
