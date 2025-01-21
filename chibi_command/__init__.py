@@ -33,6 +33,8 @@ class Command_result:
         self.parse_result()
 
     def __str__( self ):
+        if self.result is None and self.error is None:
+            return f"No captivo: {self.command}"
         if self:
             return self.result
         return self.error
@@ -115,8 +117,7 @@ class Command:
         if isinstance( stdin, str ):
             stdin = PIPE
         arguments = self.build_tuple( *args, **kw )
-        logger.debug(
-            'comando con argumentos "{}"'.format( str( arguments  ) ) )
+        logger.debug( 'tuplas del comando: "{str(arguments)}"' )
         arguments = tuple( map( lambda x: str( x ), arguments ) )
         proc = Popen(
             arguments, stdin=stdin, stdout=self.stdout, stderr=self.stderr )
@@ -212,6 +213,13 @@ class Command:
     def add_args( self, *new_args, **new_kw ):
         if new_args:
             self.args = tuple( itertools.chain( self.args, new_args ) )
+
+        if new_kw:
+            self.kw.update( new_kw )
+
+    def insert_args( self, *new_args, **new_kw ):
+        if new_args:
+            self.args = tuple( itertools.chain( new_args, self.args ) )
 
         if new_kw:
             self.kw.update( new_kw )

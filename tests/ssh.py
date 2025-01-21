@@ -34,3 +34,12 @@ class Test_ssh( TestCase ):
         )
         preview = ssh.preview( sudo=True )
         self.assertEqual( preview, expected )
+
+    def test_ssh_test_should_work( self ):
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        ssh.set_to_test()
+        expected = (
+            "ssh -q some_user@8.8.8.8 exit"
+        )
+        preview = ssh.preview()
+        self.assertEqual( preview, expected )

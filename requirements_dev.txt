@@ -16,3 +16,5 @@ wheel
 jedi
 pipdeptree
 rope
+ropevim
+setuptools

@@ -9,6 +9,11 @@ class Cp( Command ):
     args = [ '-v' ]
 
 
+class Exit( Command ):
+    command = 'exit'
+    captive = False
+
+
 class Ping_result( Command_result ):
     def parse_result( self ):
         lines = self.result.split( '\n' )

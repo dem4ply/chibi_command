@@ -12,8 +12,8 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'gitpython>=3.1.41', 'chibi>=0.5.5', 'chibi_hybrid>=0.0.1',
-    'chibi-atlas>=1.1.0' ]
+    'chibi>=0.5.5', 'chibi_hybrid>=0.0.1', 'chibi-atlas>=1.1.0',
+    'chibi_requests>=1.2.0' ]
 
 setup(
     author="Dem4ply",

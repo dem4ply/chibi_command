@@ -1,4 +1,5 @@
 from chibi_command import Command
+from chibi_command.common import Exit
 from chibi_atlas import Chibi_atlas_list
 
 
@@ -51,3 +52,9 @@ class Ssh( Command ):
         except AttributeError:
             self._commands = Chibi_atlas_list()
             return self._commands
+
+    def set_to_test( self ):
+        self.insert_args( '-q' )
+        self.commands.append( Exit() )
+        self.raise_on_fail = False
+        return self
