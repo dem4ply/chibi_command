@@ -39,6 +39,12 @@ class Command_result:
             return self.result
         return self.error
 
+    def __repr__( self ):
+        return (
+            f"Command_result( code={self.return_code}, "
+            f"result='{self.result}', error='{self.error}' )"
+        )
+
     def __bool__( self ):
         return self.return_code == 0
 
