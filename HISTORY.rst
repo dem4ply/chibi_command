@@ -2,6 +2,12 @@
 History
 =======
 
+1.1.3 ( 2025-03-12 )
+--------------------
+
+* se agrego repr a los results de los comandos
+* correcion con el f string que faltaba en un logger debug
+
 1.1.0 ( 2024-10-18 )
 --------------------
 
