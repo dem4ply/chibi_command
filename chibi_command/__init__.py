@@ -123,7 +123,7 @@ class Command:
         if isinstance( stdin, str ):
             stdin = PIPE
         arguments = self.build_tuple( *args, **kw )
-        logger.debug( 'tuplas del comando: "{str(arguments)}"' )
+        logger.debug( f'tuplas del comando: "{str(arguments)}"' )
         arguments = tuple( map( lambda x: str( x ), arguments ) )
         proc = Popen(
             arguments, stdin=stdin, stdout=self.stdout, stderr=self.stderr )
