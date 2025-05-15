@@ -2,6 +2,11 @@
 History
 =======
 
+2.0.0 ( 2025-05-15 )
+--------------------
+
+* se migro el uso de git a https://github.com/dem4ply/chibi_git
+
 1.1.3 ( 2025-03-12 )
 --------------------
 
