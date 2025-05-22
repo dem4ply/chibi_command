@@ -2,6 +2,12 @@
 History
 =======
 
+2.1.0 ( 2025-05-21 )
+--------------------
+
+* se agrego el snippet para saber la ip local Ip.get_my_local_ip()
+* se agregaron los argumentos para queries de changelog de rpm RPM.query().changelog().run( 'some.rpm' )
+
 2.0.0 ( 2025-05-15 )
 --------------------
 
