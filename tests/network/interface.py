@@ -49,6 +49,12 @@ class Test_ip_commnad( TestCase ):
         for name, interface in interfaces.items():
             self.assertEqual( name, interface.name )
 
+    def test_get_my_local_ip_should_work( self ):
+        result = Ip.get_my_local_ip()
+        self.assertTrue( result )
+        self.assertIsInstance( result, str )
+        self.assertGreater( len( result ), 7 )
+
 
 class Test_iw_command( TestCase ):
     def test_iw_dev_should_work( self ):

@@ -59,6 +59,11 @@ class Interface_result( Command_result ):
         self.result = Network.load_from_string( self.result )
 
 
+class get_my_ip_result( Command_result ):
+    def parse_result( self ):
+        self.result = self.result.split()[6].strip()
+
+
 class Ip( Command ):
     command = 'ip'
     captive = True
@@ -72,6 +77,22 @@ class Ip( Command ):
     def addr( self ):
         self.add_args( 'addr' )
         return self
+
+    @classmethod
+    def get_my_local_ip( cls, dns='8.8.8.8' ):
+        """
+        regresa la ip local del adaptador que se usa para conectar al dns
+
+        Parameters
+        ----------
+        dns: str
+            ip del dns que se conectara para resolver que adaptador se usara
+        """
+        command = cls(
+            'route', 'get', dns, captive=True,
+            result_class=get_my_ip_result )
+        result = command.run()
+        return result.result
 
 
 class Iw( Command ):
