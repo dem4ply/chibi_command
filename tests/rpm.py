@@ -36,3 +36,6 @@ class Test_RPM( TestCase ):
         called_args = popen.call_args[0][0][-1]
         self.assertEqual( called_args, "some.rpm" )
 
+    def test_query_make_captive_the_command( self ):
+        result = RPM.query()
+        self.assertTrue( result.captive )

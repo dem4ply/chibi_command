@@ -13,7 +13,7 @@ class RPM( Command ):
 
     @Chibi_hybrid
     def query( cls ):
-        return cls( '-q' )
+        return cls( '-q', captive=True )
 
     @query.instancemethod
     def query( self ):

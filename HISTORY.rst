@@ -2,6 +2,11 @@
 History
 =======
 
+2.1.1 ( 2025-05-22 )
+--------------------
+
+* usar el RPM.query() hace que el comando sea captivo
+
 2.1.0 ( 2025-05-21 )
 --------------------
 
