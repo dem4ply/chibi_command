@@ -2,6 +2,11 @@
 History
 =======
 
+2.2.0 ( 2026-03-20 )
+--------------------
+
+* se agrego el comando lsblk en chibi_command.disk.lsblk
+
 2.1.1 ( 2025-05-22 )
 --------------------
 
