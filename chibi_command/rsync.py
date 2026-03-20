@@ -99,3 +99,13 @@ class Rsync( Command ):
     def checksum( self ):
         self.options( '--checksum' )
         return self
+
+    @Chibi_hybrid
+    def ignore_existing( cls ):
+        instance = cls.options( '--ignore-existing' )
+        return instance
+
+    @ignore_existing.instancemethod
+    def ignore_existing( self ):
+        self.options( '--ignore-existing' )
+        return self

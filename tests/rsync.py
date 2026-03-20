@@ -28,3 +28,11 @@ class Test_rsync( TestCase ):
     def test_clone_dir( self ):
         func = Rsync.clone_dir()
         self.assertEqual( 'rsync -a -u', func.preview() )
+
+    def test_ignore_existing( self ):
+        func = Rsync.ignore_existing()
+        self.assertEqual( 'rsync --ignore-existing', func.preview() )
+
+    def test_copy_no_existing( self ):
+        func = Rsync.archive_mode().verbose().ignore_existing()
+        self.assertEqual( 'rsync -a -v --ignore-existing', func.preview() )
