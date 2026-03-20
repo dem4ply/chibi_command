@@ -57,6 +57,9 @@ class Command_result:
 
 
 class Command_json_result( Command_result ):
+    """
+    parsea el resultado de un comando si es un json
+    """
     def parse_result( self ):
         result = json.loads( self.result )
         result = Atlas( result )
