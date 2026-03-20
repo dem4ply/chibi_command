@@ -20,15 +20,19 @@ run terminal commands
 * Documentation: https://chibi-command.readthedocs.io.
 
 
-Features
---------
+***
+Use
+***
 
-* TODO
+use lsblk
 
-Credits
--------
+.. code-block:: python
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+	from chibi_command.disk.lsblk import Lsblk
+
+	blocks = Lsblk().run().result
+	assert blocks[ 'sda' ].childs[ 'name' ]
+
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
