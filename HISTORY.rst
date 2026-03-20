@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.3.0 ( 2026-03-20 )
+********************
+
+* se agrego la opcion de ignore-existing para rsync
+* se agrego el comando e2label
+
+********************
 2.2.0 ( 2026-03-20 )
 ********************
 
