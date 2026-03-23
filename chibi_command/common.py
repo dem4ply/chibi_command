@@ -34,7 +34,7 @@ class Ping_result( Command_result ):
             for item in numbers:
                 k, v = item.split( '=' )
                 if k == 'time' or k == 'tiempo':
-                    ping[ k ] = float( v )
+                    ping[ 'time' ] = float( v )
                 else:
                     ping[ k ] = int( v )
 

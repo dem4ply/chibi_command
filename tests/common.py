@@ -26,3 +26,8 @@ class Test_ping( TestCase ):
         result = Ping().run( 'localhost' )
         self.assertIsInstance( result.pings, list )
         self.assertTrue( result.pings )
+
+    def test_result_should_be_converted_to_str( self ):
+        result = Ping().run( 'localhost' )
+        self.assertTrue( str( result ) )
+        self.assertTrue( str( result.result ) )
