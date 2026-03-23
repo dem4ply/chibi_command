@@ -3,6 +3,12 @@ History
 =======
 
 ********************
+2.3.1 ( 2026-03-20 )
+********************
+
+* correcion en el nombre de la llave time o tiempo para el comando de ping
+
+********************
 2.3.0 ( 2026-03-20 )
 ********************
 
