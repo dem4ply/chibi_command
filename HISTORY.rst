@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.3.2 ( 2026-03-24 )
+********************
+
+* se agrego la propiedad para asignar el identity file para ssh
+* se agrego la propiedad de usuario y host para el comando ssh
+
+********************
 2.3.1 ( 2026-03-20 )
 ********************
 
