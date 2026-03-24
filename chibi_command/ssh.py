@@ -11,8 +11,8 @@ class Ssh( Command ):
     def __init__( self, user, host, identity_file=None, *args, **kw ):
         self._user = user
         self._host = host
-        self.identity_file = identity_file
         super().__init__( self._build_connection(), *args, **kw )
+        self.identity_file = identity_file
 
     @property
     def user( self ):

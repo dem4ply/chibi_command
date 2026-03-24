@@ -67,3 +67,12 @@ class Test_ssh( TestCase ):
         self.assertEqual(
             result.preview(),
             f"ssh -i {identity_file} -q some_user@8.8.8.8 exit" )
+
+    def test_set_identity_file_on_init( self ):
+        temp = Chibi_temp_path()
+        identity_file = temp.temp_file()
+        ssh = Ssh( 'some_user', '8.8.8.8', identity_file=identity_file )
+        result = ssh.set_to_test()
+        self.assertEqual(
+            result.preview(),
+            f"ssh -i {identity_file} -q some_user@8.8.8.8 exit" )
