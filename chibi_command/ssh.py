@@ -12,6 +12,14 @@ class Ssh( Command ):
         self._host = host
         super().__init__( self._build_connection(), *args, **kw )
 
+    @property
+    def user( self ):
+        return self._user
+
+    @property
+    def host( self ):
+        return self._host
+
     def append( self, *commands ):
         self.commands.append( *commands )
 

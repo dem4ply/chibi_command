@@ -43,3 +43,11 @@ class Test_ssh( TestCase ):
         )
         preview = ssh.preview()
         self.assertEqual( preview, expected )
+
+    def test_user_should_return_the_user( self ):
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        self.assertEqual( ssh.user, "some_user" )
+
+    def test_host_should_return_the_host( self ):
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        self.assertEqual( ssh.host, "8.8.8.8" )
