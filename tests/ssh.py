@@ -1,6 +1,7 @@
 from unittest import TestCase
 from chibi_command.ssh import Ssh
 from chibi_command.common import Cp
+from chibi.file.temp import Chibi_temp_path
 
 
 class Test_ssh( TestCase ):
@@ -51,3 +52,18 @@ class Test_ssh( TestCase ):
     def test_host_should_return_the_host( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         self.assertEqual( ssh.host, "8.8.8.8" )
+
+    def test_without_identity_file_should_be_fine( self ):
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        result = ssh.set_to_test().preview()
+        self.assertEqual( result, "ssh -q some_user@8.8.8.8 exit" )
+
+    def test_add_identity_file_to_intance_should_work( self ):
+        temp = Chibi_temp_path()
+        identity_file = temp.temp_file()
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        result = ssh.set_to_test()
+        result.identity_file = identity_file
+        self.assertEqual(
+            result.preview(),
+            f"ssh -i {identity_file} -q some_user@8.8.8.8 exit" )

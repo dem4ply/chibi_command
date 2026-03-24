@@ -1,3 +1,4 @@
+from chibi.file import Chibi_path
 from chibi_command import Command
 from chibi_command.common import Exit
 from chibi_atlas import Chibi_atlas_list
@@ -7,9 +8,10 @@ class Ssh( Command ):
     command = 'ssh'
     captive = False
 
-    def __init__( self, user, host, *args, **kw ):
+    def __init__( self, user, host, identity_file=None, *args, **kw ):
         self._user = user
         self._host = host
+        self.identity_file = identity_file
         super().__init__( self._build_connection(), *args, **kw )
 
     @property
@@ -19,6 +21,21 @@ class Ssh( Command ):
     @property
     def host( self ):
         return self._host
+
+    @property
+    def identity_file( self ):
+        return self._identity_file
+
+    @identity_file.setter
+    def identity_file( self, value ):
+        if value is None:
+            self._identity_file = None
+            return
+        path = Chibi_path( value )
+        if not path.exists:
+            raise FileNotFoundError( path )
+        self._identity_file = path
+        self.kw[ '-i' ] = self._identity_file
 
     def append( self, *commands ):
         self.commands.append( *commands )
