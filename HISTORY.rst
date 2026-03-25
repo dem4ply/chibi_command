@@ -3,6 +3,12 @@ History
 =======
 
 ********************
+2.4.3 ( 2026-03-25 )
+********************
+
+* correcion cuando se manda su por ssh se agregaron las comillas para -c
+
+********************
 2.4.2 ( 2026-03-25 )
 ********************
 
