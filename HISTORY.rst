@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.4.4 ( 2026-03-25 )
+********************
+
+* se cambio la estructura del comando ssh para poder encdenar multiples comandos con su
+* se agrego el comando cd
+
+********************
 2.4.3 ( 2026-03-25 )
 ********************
 
