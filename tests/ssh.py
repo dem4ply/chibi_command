@@ -76,3 +76,21 @@ class Test_ssh( TestCase ):
         self.assertEqual(
             result.preview(),
             f"ssh -i {identity_file} -q some_user@8.8.8.8 exit" )
+
+    def test_preview_when_use_su_on_run_should_append_su( self ):
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        ssh.commands.append( Cp( 'path/one', 'path/two' ) )
+        ssh.sudo_command = "su"
+
+        expected = "ssh some_user@8.8.8.8 su cp -v path/one path/two"
+        preview = ssh.preview( sudo=True )
+        self.assertEqual( preview, expected )
+
+    def test_preview_when_is_set_sudo_should_return_su_commadn( self ):
+        ssh = Ssh( 'some_user', '8.8.8.8' )
+        ssh.commands.append( Cp( 'path/one', 'path/two' ) )
+        ssh.sudo_command = "su"
+
+        expected = "ssh some_user@8.8.8.8 su cp -v path/one path/two"
+        preview = ssh.preview()
+        self.assertEqual( preview, expected )

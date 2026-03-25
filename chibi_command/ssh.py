@@ -11,8 +11,23 @@ class Ssh( Command ):
     def __init__( self, user, host, identity_file=None, *args, **kw ):
         self._user = user
         self._host = host
+        self._sudo_command = None
         super().__init__( self._build_connection(), *args, **kw )
         self.identity_file = identity_file
+
+    @property
+    def sudo_command( self ):
+        return self._sudo_command
+
+    @sudo_command.setter
+    def sudo_command( self, value ):
+        if value == "sudo" or value == "su":
+            self._sudo_command = value
+        elif value is None:
+            self._sudo_command = None
+        else:
+            raise NotImplementedError(
+                f"alternativa a sudo '{value}' no implementada" )
 
     @property
     def user( self ):
@@ -41,9 +56,12 @@ class Ssh( Command ):
         self.commands.append( *commands )
 
     def _concatenate_commands( self, sudo=False, fail_fast=True ):
-        if sudo:
+        if sudo or self.sudo_command:
+            tmp_sudo = self.sudo_command
+            if tmp_sudo is None:
+                tmp_sudo = 'sudo'
             preview_commands = map(
-                lambda x: f'sudo {x.preview()}',
+                lambda x: f'{tmp_sudo} {x.preview()}',
                 self.commands )
         else:
             preview_commands = map( lambda x: x.preview(), self.commands )
