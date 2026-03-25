@@ -78,10 +78,11 @@ class Command:
     result_class = Command_result
     delegate = None
     raise_on_fail = True
+    env = None
 
     def __init__(
             self, *args, captive=None, command=None, result_class=None,
-            delegate=None, **kw ):
+            delegate=None, env=None, **kw ):
 
         if delegate is not None:
             self.delegate = delegate
@@ -98,6 +99,12 @@ class Command:
         if not command and not self.command and args:
             self.command = args[0]
             args = args[1:]
+
+        if env is not None:
+            self.env = Chibi_atlas( env )
+        else:
+            self.env = Chibi_atlas( self.env )
+
         if self.args is None:
             self.args = tuple()
         else:
@@ -128,8 +135,15 @@ class Command:
         arguments = self.build_tuple( *args, **kw )
         logger.debug( f'tuplas del comando: "{str(arguments)}"' )
         arguments = tuple( map( lambda x: str( x ), arguments ) )
-        proc = Popen(
-            arguments, stdin=stdin, stdout=self.stdout, stderr=self.stderr )
+        if self.env:
+            proc = Popen(
+                arguments, stdin=stdin,
+                stdout=self.stdout, stderr=self.stderr,
+                env=self.env )
+        else:
+            proc = Popen(
+                arguments, stdin=stdin,
+                stdout=self.stdout, stderr=self.stderr, )
         return proc
 
     def build_tuple( self, *args, **kw ):

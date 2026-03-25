@@ -7,6 +7,8 @@ from chibi_command import Command, Command_json_result
 from chibi_command.nix.systemd_run import System_run
 from chibi_command.nix import Systemctl
 
+from chibi_command.unittests import patch_empty
+
 
 class Test_echo( TestCase ):
 
@@ -59,6 +61,8 @@ class Echo_with_delegate( Command ):
     delegate = System_run
 
 
+
+
 class Test_delegate( TestCase ):
     def setUp( self ):
         self.command_without_delegate = Echo
@@ -90,3 +94,36 @@ class Test_delegate( TestCase ):
         )
         result = re.match( expected, preview )
         self.assertTrue( result )
+
+
+class Echo_with_env( Command ):
+    command = 'echo'
+    env = { 'LC_ALL': 'C' }
+
+
+class Test_command_env( TestCase ):
+    def setUp( self ):
+        self.command_without_env = Echo
+        self.command = Echo_with_env
+
+    @patch_empty
+    def test_with_env_should_be_passed_to_popen( self, popen ):
+        self.command().run()
+        kw = popen.call_args[1]
+        self.assertIn( 'env', kw )
+        self.assertEqual( kw[ 'env' ], { 'LC_ALL': 'C' } )
+
+    @patch_empty
+    def test_without_env_should_not_pass_env_to_popen( self, popen ):
+        self.command_without_env().run()
+        kw = popen.call_args[1]
+        self.assertNotIn( 'env', kw )
+
+    @patch_empty
+    def test_when_change_instance_env_should_send_to_popen( self, popen ):
+        command = self.command_without_env()
+        command.env.LC_ALL = 'C'
+        command.run()
+        kw = popen.call_args[1]
+        self.assertIn( 'env', kw )
+        self.assertEqual( kw[ 'env' ], { 'LC_ALL': 'C' } )
