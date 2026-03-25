@@ -61,10 +61,14 @@ class Ssh( Command ):
             if tmp_sudo is None:
                 tmp_sudo = 'sudo'
             if tmp_sudo == "su":
-                tmp_sudo = "su -c"
-            preview_commands = map(
-                lambda x: f'{tmp_sudo} {x.preview()}',
-                self.commands )
+                tmp_sudo = 'su -c "'
+                preview_commands = map(
+                    lambda x: f'{tmp_sudo}{x.preview()}"',
+                    self.commands )
+            else:
+                preview_commands = map(
+                    lambda x: f'{tmp_sudo} {x.preview()}',
+                    self.commands )
         else:
             preview_commands = map( lambda x: x.preview(), self.commands )
         if fail_fast:

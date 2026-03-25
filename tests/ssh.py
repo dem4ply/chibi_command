@@ -82,7 +82,7 @@ class Test_ssh( TestCase ):
         ssh.commands.append( Cp( 'path/one', 'path/two' ) )
         ssh.sudo_command = "su"
 
-        expected = "ssh some_user@8.8.8.8 su -c cp -v path/one path/two"
+        expected = 'ssh some_user@8.8.8.8 su -c "cp -v path/one path/two"'
         preview = ssh.preview( sudo=True )
         self.assertEqual( preview, expected )
 
@@ -91,6 +91,6 @@ class Test_ssh( TestCase ):
         ssh.commands.append( Cp( 'path/one', 'path/two' ) )
         ssh.sudo_command = "su"
 
-        expected = "ssh some_user@8.8.8.8 su -c cp -v path/one path/two"
+        expected = 'ssh some_user@8.8.8.8 su -c "cp -v path/one path/two"'
         preview = ssh.preview()
         self.assertEqual( preview, expected )
