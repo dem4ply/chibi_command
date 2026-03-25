@@ -25,6 +25,7 @@ Use
 ***
 
 use lsblk
+=========
 
 .. code-block:: python
 
@@ -34,5 +35,18 @@ use lsblk
 	assert blocks[ 'sda' ].childs[ 'name' ]
 
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+parchear popen
+==============
+
+.. code-block:: python
+
+	from chibi_command import Command, Command_json_result
+	from chibi_command.unittests import patch_empty
+
+
+	class Test_test( TestCase ):
+
+		@patch_empty
+		def test_some_test( self, popen ):
+			self.command().run()
+			popen.assert_called()

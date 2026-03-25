@@ -3,6 +3,15 @@ History
 =======
 
 ********************
+2.4.0 ( 2026-03-25 )
+********************
+
+* se agrego atajo para parchear popen
+* se agrego parametro en las clases para agregar variables de ambiente cuando
+	se ejecuta algun comando
+* se agrego funcion para buscar paquetes con pacman
+
+********************
 2.3.2 ( 2026-03-24 )
 ********************
 
