@@ -1,9 +1,5 @@
-from chibi_command import Command
-import json
-
 from chibi.atlas import Chibi_atlas
-
-from chibi_command import Command, Command_result, Command_json_result
+from chibi_command import Command, Command_json_result
 
 
 class Block( Chibi_atlas ):

@@ -61,8 +61,6 @@ class Echo_with_delegate( Command ):
     delegate = System_run
 
 
-
-
 class Test_delegate( TestCase ):
     def setUp( self ):
         self.command_without_delegate = Echo
