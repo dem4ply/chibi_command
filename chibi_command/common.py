@@ -9,6 +9,11 @@ class Cp( Command ):
     args = [ '-v' ]
 
 
+class Cd( Command ):
+    command = 'cd'
+    captive = False
+
+
 class Exit( Command ):
     command = 'exit'
     captive = False
