@@ -63,7 +63,7 @@ class Ssh( Command ):
             if tmp_sudo == "su":
                 tmp_sudo = 'su -c "'
                 preview_commands = map(
-                    lambda x: f'{tmp_sudo}{x.preview()}"',
+                    lambda x: f'{x.preview()}',
                     self.commands )
             else:
                 preview_commands = map(
@@ -75,7 +75,10 @@ class Ssh( Command ):
             splitter = '&&'
         else:
             splitter = ';'
-        result = []
+        if self.sudo_command == 'su':
+            result = [ 'su -c "' ]
+        else:
+            result = []
         for command in preview_commands:
             result.append( command )
             result.append( splitter )
@@ -83,6 +86,8 @@ class Ssh( Command ):
         # y no se como hacerlo de otra forma
         if result:
             result.pop()
+        if self.sudo_command == 'su':
+            result.append( '"' )
         return result
 
     def _build_connection( self ):
