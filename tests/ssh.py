@@ -7,19 +7,19 @@ from chibi.file.temp import Chibi_temp_path
 class Test_ssh( TestCase ):
     def test_preview_should_have_expected_command( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
-        self.assertEqual( ssh.preview(), 'ssh some_user@8.8.8.8' )
+        self.assertEqual( ssh.preview(), 'ssh -t some_user@8.8.8.8' )
 
     def test_preview_when_add_commands_should_be_append( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         ssh.commands.append( Cp( 'path/one', 'path/two' ) )
-        expected = "ssh some_user@8.8.8.8 cp -v path/one path/two"
+        expected = "ssh -t some_user@8.8.8.8 cp -v path/one path/two"
         preview = ssh.preview()
         self.assertEqual( preview, expected )
 
     def test_preview_when_use_sudo_on_run_should_append_sudo( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         ssh.commands.append( Cp( 'path/one', 'path/two' ) )
-        expected = "ssh some_user@8.8.8.8 sudo cp -v path/one path/two"
+        expected = "ssh -t some_user@8.8.8.8 sudo cp -v path/one path/two"
         preview = ssh.preview( sudo=True )
         self.assertEqual( preview, expected )
 
@@ -30,7 +30,7 @@ class Test_ssh( TestCase ):
             Cp( 'path/one', 'path/two' ),
         )
         expected = (
-            "ssh some_user@8.8.8.8 sudo cp -v path/one path/two && "
+            "ssh -t some_user@8.8.8.8 sudo cp -v path/one path/two && "
             "sudo cp -v path/one path/two"
         )
         preview = ssh.preview( sudo=True )
@@ -40,7 +40,7 @@ class Test_ssh( TestCase ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         ssh.set_to_test()
         expected = (
-            "ssh -q some_user@8.8.8.8 exit"
+            "ssh -q -t some_user@8.8.8.8 exit"
         )
         preview = ssh.preview()
         self.assertEqual( preview, expected )
@@ -56,7 +56,7 @@ class Test_ssh( TestCase ):
     def test_without_identity_file_should_be_fine( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         result = ssh.set_to_test().preview()
-        self.assertEqual( result, "ssh -q some_user@8.8.8.8 exit" )
+        self.assertEqual( result, "ssh -q -t some_user@8.8.8.8 exit" )
 
     def test_add_identity_file_to_intance_should_work( self ):
         temp = Chibi_temp_path()
@@ -66,7 +66,7 @@ class Test_ssh( TestCase ):
         result.identity_file = identity_file
         self.assertEqual(
             result.preview(),
-            f"ssh -i {identity_file} -q some_user@8.8.8.8 exit" )
+            f"ssh -i {identity_file} -q -t some_user@8.8.8.8 exit" )
 
     def test_set_identity_file_on_init( self ):
         temp = Chibi_temp_path()
@@ -75,14 +75,14 @@ class Test_ssh( TestCase ):
         result = ssh.set_to_test()
         self.assertEqual(
             result.preview(),
-            f"ssh -i {identity_file} -q some_user@8.8.8.8 exit" )
+            f"ssh -i {identity_file} -q -t some_user@8.8.8.8 exit" )
 
     def test_preview_when_use_su_on_run_should_append_su( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         ssh.commands.append( Cp( 'path/one', 'path/two' ) )
         ssh.sudo_command = "su"
 
-        expected = 'ssh some_user@8.8.8.8 su -c " cp -v path/one path/two "'
+        expected = 'ssh -t some_user@8.8.8.8 su -c " cp -v path/one path/two "'
         preview = ssh.preview( sudo=True )
         self.assertEqual( preview, expected )
 
@@ -91,7 +91,7 @@ class Test_ssh( TestCase ):
         ssh.commands.append( Cp( 'path/one', 'path/two' ) )
         ssh.sudo_command = "su"
 
-        expected = 'ssh some_user@8.8.8.8 su -c " cp -v path/one path/two "'
+        expected = 'ssh -t some_user@8.8.8.8 su -c " cp -v path/one path/two "'
         preview = ssh.preview()
         self.assertEqual( preview, expected )
 
@@ -104,7 +104,7 @@ class Test_ssh( TestCase ):
         )
         ssh.sudo_command = "su"
         expected = (
-            'ssh some_user@8.8.8.8 su -c " cp -v path/one path/two && '
+            'ssh -t some_user@8.8.8.8 su -c " cp -v path/one path/two && '
             'cp -v path/one path/two "'
         )
         preview = ssh.preview( sudo=True )

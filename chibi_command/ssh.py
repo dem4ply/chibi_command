@@ -8,12 +8,16 @@ class Ssh( Command ):
     command = 'ssh'
     captive = False
 
-    def __init__( self, user, host, identity_file=None, *args, **kw ):
+    def __init__(
+            self, user, host, pseudo_terminal=True,
+            identity_file=None, *args, **kw ):
         self._user = user
         self._host = host
         self._sudo_command = None
         super().__init__( self._build_connection(), *args, **kw )
         self.identity_file = identity_file
+        if pseudo_terminal:
+            self.insert_args( '-t' )
 
     @property
     def sudo_command( self ):
