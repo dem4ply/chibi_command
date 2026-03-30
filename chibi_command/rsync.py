@@ -109,3 +109,13 @@ class Rsync( Command ):
     def ignore_existing( self ):
         self.options( '--ignore-existing' )
         return self
+
+    @Chibi_hybrid
+    def ssh( cls, ssh ):
+        instance = cls.add_args( e=ssh )
+        return instance
+
+    @ssh.instancemethod
+    def ssh( self, ssh ):
+        self.add_args( e=ssh )
+        return self

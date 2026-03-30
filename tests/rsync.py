@@ -1,6 +1,8 @@
 from unittest import TestCase
 
 from chibi_command.rsync import Rsync
+from chibi_command.ssh import Ssh
+from chibi.file.temp import Chibi_temp_path
 
 
 class Test_rsync( TestCase ):
@@ -35,4 +37,12 @@ class Test_rsync( TestCase ):
 
     def test_copy_no_existing( self ):
         func = Rsync.archive_mode().verbose().ignore_existing()
+        self.assertEqual( 'rsync -a -v --ignore-existing', func.preview() )
+
+    def test_when_add_ssh_should_add_argument_e( self ):
+        temp = Chibi_temp_path()
+        identity_file = temp.temp_file()
+        ssh = Ssh(
+            user="some_user", host="some_host", identity_file=identity_file )
+        func = Rsync.archive_mode().verbose().ignore_existing().ssh( ssh )
         self.assertEqual( 'rsync -a -v --ignore-existing', func.preview() )
