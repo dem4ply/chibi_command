@@ -53,8 +53,10 @@ class Systemctl( Command ):
     result_class = Journal_status
 
     @classmethod
-    def status( cls, *services ):
+    def status( cls, *services, no_fail=False ):
         result = cls( 'status', *services )
+        if no_fail:
+            result.raise_on_fail = False
         return result
 
     @classmethod

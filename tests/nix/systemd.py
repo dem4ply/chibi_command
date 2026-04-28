@@ -17,6 +17,10 @@ class Test_systemctl( TestCase ):
         self.assertEqual(
             'NetworkManager.service', result.result.service )
 
+    def test_status_no_fail( self ):
+        result = Systemctl.status( "unkown", no_fail=True )
+        self.assertFalse( result.raise_on_fail )
+
     def test_status_has_the_show_properites( self ):
         result = Systemctl.status( "NetworkManager" ).run()
         self.assertIn( 'properties', result.result )
