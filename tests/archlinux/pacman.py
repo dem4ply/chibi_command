@@ -14,6 +14,11 @@ class Test_pacman( TestCase ):
         expected = 'pacman -Syu'
         self.assertEqual( pacman.preview(), expected )
 
+    def test_preview_upgrade_no_confirm_should_be_expected( self ):
+        pacman = Pacman.upgrade().no_confirm()
+        expected = 'pacman -Syu --noconfirm'
+        self.assertEqual( pacman.preview(), expected )
+
     def test_preview_install_package_should_be_expected( self ):
         pacman = Pacman.install( 'python-chibi', 'python-chibi-command' )
         expected = 'pacman -S python-chibi python-chibi-command'

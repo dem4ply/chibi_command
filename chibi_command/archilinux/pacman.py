@@ -59,3 +59,12 @@ class Pacman( Command ):
         self.captive = True
         self.raise_on_fail = False
         return self
+
+    @Chibi_hybrid
+    def no_confirm( cls ):
+        return cls( '--noconfirm' )
+
+    @no_confirm.instancemethod
+    def no_confirm( self ):
+        self.add_args( '--noconfirm' )
+        return self
