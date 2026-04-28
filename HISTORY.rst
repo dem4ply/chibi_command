@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.5.1 ( 2026-04-28 )
+********************
+
+* se agrego a status no_fail para los servicios desabilitados
+* se agrego a pacman print version "Pacman.sync().print_version().run( "paquete" ).result"
+
+********************
 2.5.0 ( 2026-04-28 )
 ********************
 
