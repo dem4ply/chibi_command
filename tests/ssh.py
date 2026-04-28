@@ -95,7 +95,6 @@ class Test_ssh( TestCase ):
         preview = ssh.preview()
         self.assertEqual( preview, expected )
 
-
     def test_append_from_commands_work_with_multi_with_su( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )
         ssh.commands.append(
