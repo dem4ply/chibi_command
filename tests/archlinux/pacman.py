@@ -9,6 +9,15 @@ class Test_pacman( TestCase ):
         expected = 'pacman -Sy'
         self.assertEqual( pacman.preview(), expected )
 
+    def test_preview_print_version_should_be_expected( self ):
+        pacman = Pacman.sync().print_version()
+        expected = 'pacman -Sy --print-format %v'
+        self.assertEqual( pacman.preview(), expected )
+
+    def test_print_version_should_be_captive( self ):
+        pacman = Pacman.sync().print_version()
+        self.assertTrue( pacman.captive )
+
     def test_preview_upgrade_should_be_expected( self ):
         pacman = Pacman.upgrade()
         expected = 'pacman -Syu'

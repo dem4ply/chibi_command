@@ -27,6 +27,16 @@ class Query_result( Command_result ):
         self.result = result
 
 
+class Print_version_result( Command_result ):
+    def parse_result( self ):
+        if not bool( self ):
+            return
+        lines = self.result.split( '\n' )
+        lines = list( filter( bool, lines ) )
+        last = lines[-1]
+        self.result = last
+
+
 class Pacman( Command ):
     command = 'pacman'
     captive = False
@@ -67,4 +77,17 @@ class Pacman( Command ):
     @no_confirm.instancemethod
     def no_confirm( self ):
         self.add_args( '--noconfirm' )
+        return self
+
+    @Chibi_hybrid
+    def print_version( cls ):
+        instance = cls( '--print-format', '%v' )
+        instance.captive = True
+        return instance
+
+    @print_version.instancemethod
+    def print_version( self ):
+        self.add_args( '--print-format', '%v' )
+        self.captive = True
+        self.result_class = Print_version_result
         return self
