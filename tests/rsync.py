@@ -45,4 +45,7 @@ class Test_rsync( TestCase ):
         ssh = Ssh(
             user="some_user", host="some_host", identity_file=identity_file )
         func = Rsync.archive_mode().verbose().ignore_existing().ssh( ssh )
-        self.assertEqual( 'rsync -a -v --ignore-existing', func.preview() )
+        self.assertEqual(
+            f'rsync e ssh -i {identity_file} -t some_user@some_host -a '
+            '-v --ignore-existing',
+            func.preview() )
