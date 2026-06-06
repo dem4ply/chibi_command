@@ -17,6 +17,11 @@ class System_run( Command ):
     kw = { 'unit': 'chibi_command_delegate', 'property': 'Delegate=yes' }
     kw_format = "--{key}={value}"
 
+    def __init__( self, *args, **kw ):
+        if os.getuid() == 0:
+            self.args.remove( '--user' )
+        super().__init__( *args, **kw )
+
     @Chibi_hybrid
     def set_command( cls, command, *args ):
         command = cls( command, *args )
