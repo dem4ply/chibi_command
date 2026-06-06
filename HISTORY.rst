@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.5.2 ( 2026-06-06 )
+********************
+
+* al comando de systemd-run se agrego que solo llame la lista de unidades
+	del usuario si no es root
+
+********************
 2.5.1 ( 2026-04-28 )
 ********************
 
