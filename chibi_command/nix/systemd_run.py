@@ -19,7 +19,11 @@ class System_run( Command ):
 
     def __init__( self, *args, **kw ):
         if os.getuid() == 0:
-            self.args.remove( '--user' )
+            if '--user' in self.args:
+                self.args.remove( '--user' )
+        else:
+            if '--user' not in self.args:
+                self.args.insert( '--user' )
         super().__init__( *args, **kw )
 
     @Chibi_hybrid
