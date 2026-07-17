@@ -3,6 +3,12 @@ History
 =======
 
 ********************
+2.5.4 ( 2026-06-06 )
+********************
+
+* se agrego condicion en delegado de systemd-run para controlar edgecase
+
+********************
 2.5.3 ( 2026-06-06 )
 ********************
 
