@@ -55,6 +55,14 @@ class Command_result:
         if not bool( self ):
             raise Result_error( self )
 
+    def parse_as_lines( self, string ):
+        lines = self.result.split( '\n' )
+        lines = filter( bool, lines )
+        return lines
+
+    def parse_line( self, line ):
+        raise NotImplementedError
+
 
 class Command_json_result( Command_result ):
     """
