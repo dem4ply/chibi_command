@@ -3,6 +3,14 @@ History
 =======
 
 ********************
+2.6.0 ( 2026-07-24 )
+********************
+
+* comando crear maquinas virtuales con qemu - qemu-system-x86_64
+* se agrega ss - another utility to investigate sockets
+* se agrega disable a systemctl
+
+********************
 2.5.4 ( 2026-06-06 )
 ********************
 
