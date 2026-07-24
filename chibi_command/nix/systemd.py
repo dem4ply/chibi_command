@@ -70,6 +70,11 @@ class Systemctl( Command ):
         return result
 
     @classmethod
+    def disable( cls, *services ):
+        result = cls( 'disable', *services )
+        return result
+
+    @classmethod
     def restart( cls, *services ):
         result = cls( 'restart', *services )
         return result

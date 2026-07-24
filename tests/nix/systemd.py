@@ -42,3 +42,9 @@ class Test_systemctl( TestCase ):
             self.assertIn( 'load', unit )
             self.assertIn( 'sub', unit )
             self.assertIn( 'unit', unit )
+
+
+class Test_systemctl_preview( TestCase ):
+    def test_disable_should_be_expected( self ):
+        result = Systemctl.disable( 'some_service.service' ).preview()
+        self.assertTrue( result.endswith( 'disable some_service.service' ) )
