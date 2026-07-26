@@ -10,7 +10,7 @@ class Ssh( Command ):
 
     def __init__(
             self, user, host, pseudo_terminal=True,
-            identity_file=None, *args, **kw ):
+            identity_file=None, port=None, *args, **kw ):
         self._user = user
         self._host = host
         self._sudo_command = None
@@ -18,6 +18,8 @@ class Ssh( Command ):
         self.identity_file = identity_file
         if pseudo_terminal:
             self.insert_args( '-t' )
+        if port:
+            self.add_args( '-p', port )
 
     @property
     def sudo_command( self ):
@@ -110,6 +112,14 @@ class Ssh( Command ):
         except AttributeError:
             self._commands = Chibi_atlas_list()
             return self._commands
+
+    @property
+    def port( self ):
+        raise NotImplementedError
+
+    @port.setter
+    def port( self, value ):
+        self.kw[ '-p' ] = value
 
     def set_to_test( self ):
         self.insert_args( '-q' )
