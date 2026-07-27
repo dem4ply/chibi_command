@@ -69,3 +69,16 @@ class Test_makepkg_chaining_multiple_flags( TestCase ):
         command = Makepkg.syncdeps()
         command.install()
         self.assertEqual( command.preview(), 'makepkg --syncdeps --install' )
+
+    def test_instance_should_be_expected( self ):
+        command = Makepkg()
+        command.syncdeps().install().no_confirm()
+        self.assertEqual(
+            command.preview(), 'makepkg --syncdeps --install --noconfirm'
+        )
+
+    def test_from_cls_should_be_expected( self ):
+        command = Makepkg.syncdeps().install().no_confirm()
+        self.assertEqual(
+            command.preview(), 'makepkg --syncdeps --install --noconfirm'
+        )
