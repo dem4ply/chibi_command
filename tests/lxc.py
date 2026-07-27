@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import patch
 
 from chibi.atlas import Chibi_atlas
 
@@ -112,6 +113,11 @@ class Test_lxc_delegate_attach( TestCase ):
     def setUp( self ):
         self.lxc = lxc_delegate
         self.delegate_preview = System_run().preview()
+        self.mock_rand = patch(
+            'chibi_command.nix.systemd_run.generate_string' )
+        self.mock_generate_string = self.mock_rand.start()
+        self.mock_generate_string.return_value = "test_test"
+        self.addCleanup( self.mock_rand.stop )
 
     def test_add_double_dash_in_end( self ):
         preview = self.lxc.Attach.name( 'test' ).preview( 'some_command' )
