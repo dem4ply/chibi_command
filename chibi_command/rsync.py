@@ -112,10 +112,20 @@ class Rsync( Command ):
 
     @Chibi_hybrid
     def ssh( cls, ssh ):
-        instance = cls.add_args( e=ssh )
+        instance = cls( '-e', ssh.rsync_use() )
         return instance
 
     @ssh.instancemethod
     def ssh( self, ssh ):
-        self.add_args( e=ssh )
+        self.insert_args( '-e', ssh.rsync_use() )
+        return self
+
+    @Chibi_hybrid
+    def mkdir( cls ):
+        instance = cls.options( '--mkpath' )
+        return instance
+
+    @mkdir.instancemethod
+    def mkdir( self ):
+        self.options( '--mkpath' )
         return self

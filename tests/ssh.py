@@ -11,7 +11,7 @@ class Test_ssh( TestCase ):
 
     def test_add_port_should_be_expected( self ):
         ssh = Ssh( 'some_user', '8.8.8.8', port=2222 )
-        self.assertEqual( ssh.preview(), 'ssh -t some_user@8.8.8.8 -p 2222' )
+        self.assertEqual( ssh.preview(), 'ssh -p 2222 -t some_user@8.8.8.8' )
 
     def test_add_port_paramater_should_be_expected( self ):
         ssh = Ssh( 'some_user', '8.8.8.8' )

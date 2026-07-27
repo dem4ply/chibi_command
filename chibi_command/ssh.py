@@ -19,7 +19,8 @@ class Ssh( Command ):
         if pseudo_terminal:
             self.insert_args( '-t' )
         if port:
-            self.add_args( '-p', port )
+            self.port = port
+            # self.add_args( '-p', port )
 
     @property
     def sudo_command( self ):
@@ -115,7 +116,10 @@ class Ssh( Command ):
 
     @property
     def port( self ):
-        raise NotImplementedError
+        try:
+            return self.kw[ '-p' ]
+        except KeyError:
+            return None
 
     @port.setter
     def port( self, value ):
@@ -126,3 +130,14 @@ class Ssh( Command ):
         self.commands.append( Exit() )
         self.raise_on_fail = False
         return self
+
+    def rsync_use( self ):
+        ssh_rsync = type( self )(
+            user=self.user, host=self.host, pseudo_terminal=False )
+        ssh_rsync.identity_file = self.identity_file
+        port = self.port
+        if port:
+            ssh_rsync.port = port
+        user_host = self._build_connection()
+        ssh_rsync.args = tuple( a for a in ssh_rsync.args if user_host != a )
+        return ssh_rsync

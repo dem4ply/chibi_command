@@ -39,13 +39,30 @@ class Test_rsync( TestCase ):
         func = Rsync.archive_mode().verbose().ignore_existing()
         self.assertEqual( 'rsync -a -v --ignore-existing', func.preview() )
 
+    def test_mkdir( self ):
+        func = Rsync.archive_mode().mkdir()
+        self.assertEqual( 'rsync -a --mkpath', func.preview() )
+
     def test_when_add_ssh_should_add_argument_e( self ):
         temp = Chibi_temp_path()
         identity_file = temp.temp_file()
         ssh = Ssh(
-            user="some_user", host="some_host", identity_file=identity_file )
+            user="some_user", host="some_host", identity_file=identity_file,
+            pseudo_terminal=False )
         func = Rsync.archive_mode().verbose().ignore_existing().ssh( ssh )
         self.assertEqual(
-            f'rsync e ssh -i {identity_file} -t some_user@some_host -a '
+            f'rsync -e ssh -i {identity_file} -a '
+            '-v --ignore-existing',
+            func.preview() )
+
+    def test_when_add_ssh_with_should_add_argument_e( self ):
+        temp = Chibi_temp_path()
+        identity_file = temp.temp_file()
+        ssh = Ssh(
+            user="some_user", host="some_host", identity_file=identity_file,
+            pseudo_terminal=True, port=2222 )
+        func = Rsync.archive_mode().verbose().ignore_existing().ssh( ssh )
+        self.assertEqual(
+            f'rsync -e ssh -i {identity_file} -p 2222 -a '
             '-v --ignore-existing',
             func.preview() )
