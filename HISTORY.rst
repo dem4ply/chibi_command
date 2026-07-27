@@ -3,6 +3,14 @@ History
 =======
 
 ********************
+2.7.0 ( 2026-07-27 )
+********************
+
+* se agrego propiedad de puerto a ssh
+* rsycn ahora transforma ssh para que funcione con el
+* funciones para daemonizar y agregar pidfile a qemu
+
+********************
 2.6.0 ( 2026-07-24 )
 ********************
 
