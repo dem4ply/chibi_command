@@ -7,6 +7,7 @@ from chibi_command import Command
 class Qemu_system_x86( Command ):
     command = 'qemu-system-x86_64'
     captive = False
+    # delegate = System_run
 
     @Chibi_hybrid
     def memory( cls, amount ):
@@ -80,4 +81,32 @@ class Qemu_system_x86( Command ):
             self.add_args( '-drive', f"file={file},format={format}" )
         else:
             raise NotImplementedError
+        return self
+
+    @Chibi_hybrid
+    def daemonize( cls ):
+        return cls( '-daemonize' )
+
+    @daemonize.instancemethod
+    def daemonize( self ):
+        self.add_args( '-daemonize' )
+        return self
+
+    @Chibi_hybrid
+    def pidfile( cls, path ):
+        return cls( '-pidfile', path )
+
+    @pidfile.instancemethod
+    def pidfile( self, path ):
+        self.add_args( '-pidfile', path )
+        return self
+
+    @Chibi_hybrid
+    def monitor( cls, path ):
+        return cls( '-monitor', path )
+
+    @monitor.instancemethod
+    def monitor( self, path ):
+        # -monitor unix:/tmp/qemu-arch.sock,server,nowait
+        self.add_args( '-monitor', path )
         return self
