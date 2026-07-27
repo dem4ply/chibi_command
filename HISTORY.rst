@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.7.1 ( 2026-07-27 )
+********************
+
+* makepkg regresa la instancia cuando llama las funciones
+* correcion del comando python
+
+********************
 2.7.0 ( 2026-07-27 )
 ********************
 
