@@ -1,6 +1,6 @@
 from unittest import TestCase
-from chibi_command.archilinux import Pacman
-from chibi_command.archilinux.pacman import join_parted_lines
+from chibi_command.archlinux import Pacman
+from chibi_command.archlinux.pacman import join_parted_lines
 
 
 class Test_pacman( TestCase ):

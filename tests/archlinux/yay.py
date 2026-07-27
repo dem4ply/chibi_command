@@ -1,5 +1,5 @@
 from unittest import TestCase
-from chibi_command.archilinux import Yay
+from chibi_command.archlinux import Yay
 
 
 class Test_yay( TestCase ):
