@@ -3,6 +3,13 @@ History
 =======
 
 ********************
+2.8.0 ( 2026-08-07 )
+********************
+
+* se agrego la opcion de stop a ssystemcrl
+* se agrego la opcion de exclude a rsync
+
+********************
 2.7.1 ( 2026-07-27 )
 ********************
 
