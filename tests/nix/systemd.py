@@ -48,3 +48,15 @@ class Test_systemctl_preview( TestCase ):
     def test_disable_should_be_expected( self ):
         result = Systemctl.disable( 'some_service.service' ).preview()
         self.assertTrue( result.endswith( 'disable some_service.service' ) )
+
+    def test_stop_should_be_expected( self ):
+        result = Systemctl.stop( 'some_service.service' ).preview()
+        self.assertTrue( result.endswith( 'stop some_service.service' ) )
+
+    def test_start_should_be_expected( self ):
+        result = Systemctl.start( 'some_service.service' ).preview()
+        self.assertTrue( result.endswith( 'start some_service.service' ) )
+
+    def test_enable_should_be_expected( self ):
+        result = Systemctl.enable( 'some_service.service' ).preview()
+        self.assertTrue( result.endswith( 'enable some_service.service' ) )

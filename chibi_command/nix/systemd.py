@@ -65,6 +65,11 @@ class Systemctl( Command ):
         return result
 
     @classmethod
+    def stop( cls, *services ):
+        result = cls( 'stop', *services )
+        return result
+
+    @classmethod
     def enable( cls, *services ):
         result = cls( 'enable', *services )
         return result
