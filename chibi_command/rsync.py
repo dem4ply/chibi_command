@@ -129,3 +129,13 @@ class Rsync( Command ):
     def mkdir( self ):
         self.options( '--mkpath' )
         return self
+
+    @Chibi_hybrid
+    def exclude( cls, path ):
+        instance = cls.options( '--exclude', path )
+        return instance
+
+    @exclude.instancemethod
+    def exclude( self, path ):
+        self.options( '--exclude', path )
+        return self
